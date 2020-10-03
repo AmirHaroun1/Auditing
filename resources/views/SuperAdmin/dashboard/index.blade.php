@@ -1,0 +1,7 @@
+@extends('Layout')
+
+@section('title')
+     - الرئيسية أدمن
+@endsection
+
+
