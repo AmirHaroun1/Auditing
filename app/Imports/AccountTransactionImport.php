@@ -3,19 +3,26 @@
 namespace App\Imports;
 
 use App\account_transaction;
-use Maatwebsite\Excel\Concerns\ToModel;
+use Maatwebsite\Excel\Concerns\ToArray;
+use Maatwebsite\Excel\Concerns\WithHeadingRow;
 
-class AccountTransactionImport implements ToModel
+class AccountTransactionImport implements ToArray,WithHeadingRow
 {
     /**
     * @param array $row
     *
     * @return \Illuminate\Database\Eloquent\Model|null
     */
-    public function model(array $row)
+    public function array(array  $row)
     {
-        return new account_transaction([
-            //
-        ]);
+
+    }
+    public function chunkSize(): int
+    {
+        return 300;
+    }
+    public function batchSize(): int
+    {
+        return 100;
     }
 }

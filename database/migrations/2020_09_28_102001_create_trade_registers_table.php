@@ -19,7 +19,7 @@ class CreateTradeRegistersTable extends Migration
             $table->date('date'); //تاريخ الصدور
             $table->string('production_place'); //مكان الصدور
             $table->string('type'); //فرعي / رئيسي
-
+            $table->date('EndDate'); // تاريخ الانتهاء
             $table->foreignId('institution_id')->nullable();  // الشركة
             $table->foreign('institution_id')
                 ->references('id')

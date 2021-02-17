@@ -8,6 +8,8 @@
         <div class="box-body">
             <form class="form-group" @submit.prevent="createInstitution()">
             <!-- New TransAction Form Content ------>
+                <!------ رقم السجل ------>
+
                 <div class="row">
                     <div class="form-group col-md-6" style="padding-bottom: 20px" >
                         <label class="float-right">رقم السجل الرئيسي</label>
@@ -27,7 +29,7 @@
 
                     </div>
                 </div>
-                <!-- تاريخ السجل ------>
+                <!------ تاريخ السجل ------>
 
                 <div class="row">
                     <div class="form-group col-md-6" style="padding-bottom: 20px">
@@ -49,6 +51,7 @@
                 <!-----Create-Institution Form Content -->
                 <hr>
                 <div class="row" id="NewCompanyInformation">
+                    <!------ أسم المنشأة ------>
                     <div class="col-md-6" style="padding-bottom: 20px">
                         <label class="float-right">أسم المنشأة</label>
                         <input v-model="institution.name" type="text" class="form-control" required >
@@ -59,6 +62,9 @@
                             </h4>
                         </div>
                     </div>
+                    <!------ أسم المنشأة/. ------>
+
+                    <!------ رقم المنشأة ------>
                     <div class="col-md-6" style="padding-bottom: 20px">
                         <label class="float-right">رقم المنشأة</label>
                         <input v-model="institution.company_number" type="number" class="form-control" required >
@@ -69,6 +75,9 @@
                             </h4>
                         </div>
                     </div>
+                    <!------ رقم المنشأة/. ------>
+
+                    <!------ الكيان القانوني ------>
                     <div class="col-md-3" style="padding-bottom: 20px">
                         <label class="float-right">الكيان القانوني</label>
                         <select class="form-control" v-model="institution.legal_entity" required >
@@ -83,6 +92,9 @@
                             </h4>
                         </div>
                     </div>
+                    <!------ الكيان القانوني/. ------>
+
+                    <!------ اهتمامات الملاك ------>
                     <div class="col-md-3" style="padding-bottom: 20px">
                         <label class="float-right">اهتمامات الملاك</label>
                         <select class="form-control" v-model="institution.angel_interests" required>
@@ -96,6 +108,9 @@
                             </h4>
                         </div>
                     </div>
+                    <!------ اهتمامات الملاك/. ------>
+
+                    <!------ طبيعة ملكية المنشأة وكيفية تمويلها ------>
                     <div class="col-md-3" style="padding-bottom: 20px">
                         <label class="float-right">طبيعة ملكية المنشأة وكيفية تمويلها</label>
                         <select class="form-control" v-model="institution.nature" required >
@@ -109,6 +124,9 @@
                             </h4>
                         </div>
                     </div>
+                    <!------ طبيعة ملكية المنشأة وكيفية تمويلها/. ------>
+
+                    <!------ تقويم العام المالي للمنشأة ------>
                     <div class="col-md-3" style="padding-bottom: 20px">
                         <label class="float-right">تقويم العام المالي للمنشأة</label>
                         <select class="form-control" v-model="institution.date_type" required >
@@ -123,6 +141,10 @@
                             </h4>
                         </div>
                     </div>
+                    <!------ تقويم العام المالي للمنشأة/. ------>
+
+                    <!------ نشاط المنشأة ------>
+
                     <div class="col-md-9" style="padding-bottom: 20px">
                         <label class="float-right">نشاط المنشأة</label>
                         <textarea class="form-control" v-model="institution.business_activity" rows="6" required >
@@ -134,6 +156,9 @@
                             </h4>
                         </div>
                     </div>
+                    <!------ نشاط المنشأة/. ------>
+
+                    <!------ عنوان المنشأة ------>
                     <div class="col-md-4" style="padding-bottom: 20px">
                         <label class="float-right mt-2">العنوان: المدينة</label>
                         <select class="form-control" v-model="institution.city" required>
@@ -150,7 +175,7 @@
                     </div>
                     <div class="col-md-4" style="padding-bottom: 20px">
                         <label class="float-right mt-2">العنوان: الحى</label>
-                        <select class="form-control" v-model="institution.address" required >
+                        <select class="form-control" v-model="institution.district" required >
                             <option disabled></option>
                             <option v-for="option in districtOptions" :value="option.value">{{option.value}}</option>
 
@@ -172,7 +197,9 @@
                             </h4>
                         </div>
                     </div>
+                    <!------ عنوان المنشأة/. ------>
 
+                    <!------ الرقم المميز لدى هيئة الذكاة ------>
                     <div class="col-md-4" style="padding-bottom: 20px">
                         <label class="float-right mt-2">الرقم المميز لدى هيئة الذكاة</label>
                         <input type="number" class="form-control" v-model="institution.charity_num" required>
@@ -183,6 +210,9 @@
                             </h4>
                         </div>
                     </div>
+                    <!------ الرقم المميز لدى هيئة الذكاة/. ------>
+
+                    <!------ رقم الضريبة المضافة ------>
                     <div class="col-md-4" style="padding-bottom: 20px">
                         <label class="float-right mt-2">رقم الضريبة المضافة</label>
                         <input type="number" class="form-control" v-model="institution.extra_tax_num" required >
@@ -193,29 +223,33 @@
                             </h4>
                         </div>
                     </div>
+                    <!------ رقم الضريبة المضافة/> ------>
+
                 </div>
 
                 <!-- /.Create-Institution Form Content -->
 
                 <hr>
+                <!------ تاريخ انتهاء السجل ------>
                 <div class="row">
                     <div class="form-group col-md-6" style="padding-bottom:20px">
                         <label class="float-right">تاريخ انتهاء السجل</label>
 
                         <input v-model="MainTradeRegister.EndDate" type="date" class="form-control" required>
 
-                        <div v-if="ValidationErrors.financial_year"   style="margin-top:10px">
+                        <div v-if="ValidationErrors.EndDate"   style="margin-top:10px">
                             <h4 class="  font-weight-bold" style="color:red">
-                                {{ ValidationErrors.financial_year[0] }}
+                                {{ ValidationErrors.EndDate[0] }}
                             </h4>
                         </div>
                     </div>
                 </div>
+                <!------ تاريخ انتهاء السجل/. ------>
+
                 <!-- Financial info ------>
 
                     <!------   السنة المالية ------>
-
-                    <div class="row">
+                        <div class="row">
                             <div class="form-group col-md-6" style="padding-bottom: 20px" >
                                 <label class="float-right">السنة المالية</label>
 
@@ -228,28 +262,31 @@
                                 </div>
                             </div>
                     </div>
-                    <div class="row">
-                        <div class="form-group col-md-6" style="padding-bottom: 20px">
-                            <label class="float-right"> الفترة المالية</label>
+                    <!------   السنة المالية/. ------>
 
-                            <select @change="SetFinancialDates()"  v-model="transaction.financial_period" type="text" class="form-control" required>
-                                <option value="سنة مالية">سنة مالية</option>
-                                <option value="فترة قصيرة">فترة قصيرة</option>
-                                <option value="فترة طويلة">فترة طويلة</option>
-                            </select>
+                    <!------   الفترة المالية ------>
+                        <div class="row">
+                            <div class="form-group col-md-6" style="padding-bottom: 20px">
+                                <label class="float-right"> الفترة المالية</label>
 
-                            <div v-if="ValidationErrors.financial_period"   style="margin-top:10px">
-                                <h4 class="  font-weight-bold" style="color:red">
-                                    {{ ValidationErrors.financial_period[0] }}
-                                </h4>
+                                <select @change="SetFinancialDates()"  v-model="transaction.financial_period" type="text" class="form-control" required>
+                                    <option value="سنة مالية">سنة مالية</option>
+                                    <option value="فترة قصيرة">فترة قصيرة</option>
+                                    <option value="فترة طويلة">فترة طويلة</option>
+                                </select>
+
+                                <div v-if="ValidationErrors.financial_period"   style="margin-top:10px">
+                                    <h4 class="  font-weight-bold" style="color:red">
+                                        {{ ValidationErrors.financial_period[0] }}
+                                    </h4>
+                                </div>
                             </div>
                         </div>
-                    </div>
+                     <!------   الفترة المالية/. ------>
 
 
                     <!------ بداية / نهاية  السنة المالية ------>
-
-                    <div class="row">
+                        <div class="row">
                         <div class="form-group col-md-6" style="padding-bottom: 20px">
                             <label class="float-right">بداية السنة المالية</label>
 
@@ -273,6 +310,7 @@
                             </div>
                         </div>
                     </div>
+                    <!------ بداية / نهاية  السنة المالية/. ------>
 
                 <!-- /.Financial info ------>
 
@@ -340,9 +378,8 @@
 
             <!----- Choose revisers Form Content -->
                 <div class="row" id="chooseRevisers">
-                    <h3 class="box-header"> المراجع الفنى</h3>
                     <div class="col-md-6" style="padding-bottom: 20px">
-
+                        <h3 class="box-header"> المراجع الفنى</h3>
                         <select v-model="ChoosenReviserID" class="form-control"  required>
                             <option v-for="reviser in revisers" :value="reviser.id">
                                 الكود :
@@ -350,6 +387,19 @@
 
                                 الأسم :
                                 {{reviser.name}}
+                            </option>
+                        </select>
+
+                    </div>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <h3 class="box-header">مدير المراجعة</h3>
+                        <select v-model="ChoosenRevisingManagerID" class="form-control"  required>
+                            <option v-for="revisingManager in revisingManagers" :value="revisingManager.id">
+                                الكود :
+                                {{revisingManager.id}}
+
+                                الأسم :
+                                {{revisingManager.name}}
                             </option>
                         </select>
 
@@ -379,15 +429,17 @@
 
 <script>
 
-    import {NewTradeRegisterForm} from './NewTradeRegisterForm.vue';
-
     export default {
         name: "NewCompanyForm.vue",
         data()
         {
             return{
                 revisers : [],
+                revisingManagers : [],
+
+
                 ChoosenReviserID : '',
+                ChoosenRevisingManagerID : '',
               //////// Create-Institution DATA  //////
                institution : {
                    name : '',
@@ -450,8 +502,8 @@
             }
         },
         created() {
-            this.GetRevisers(route('reviser.index'));
-
+            this.GetRevisers(route('employee.type','مراجع فني'));
+            this.GetRevisingManagers(route('employee.type','مدير مراجعة'));
             this.GetDropDowns(route('system.DropDowns.retrieve.option'));
         },
         methods: {
@@ -459,8 +511,17 @@
             GetRevisers(endpoint) {
                 axios.get(endpoint)
                     .then(({data}) => {
-                        data.revisers.forEach((reviser) => {
+                        data.employees.forEach((reviser) => {
                             this.revisers.push(reviser);
+                        });
+                    })
+            },
+            // get all the RevisingManagers in the system and put them in the array
+            GetRevisingManagers(endpoint) {
+                axios.get(endpoint)
+                    .then(({data}) => {
+                        data.employees.forEach((revisingManager) => {
+                            this.revisingManagers.push(revisingManager);
                         });
                     })
             },
@@ -520,6 +581,8 @@
 
                         this.CompanyError = false;
 
+                        this.LoadingSpinner=false;
+
                         this.createMainTradeRegister();
                     }).catch((error) => {
                         this.LoadingSpinner=false;
@@ -529,6 +592,7 @@
                     });
                 }
                 else if(!this.NewCompanyNot_ADDED){
+                    this.LoadingSpinner=false;
 
                     this.createMainTradeRegister();
                 }
@@ -553,6 +617,8 @@
                             this.NewMainRegisterNot_ADDED = false;
                             this.ValidationErrors = '';
                             this.MainRegisterError = false;
+                            this.LoadingSpinner=false;
+
                             this.createTransaction();
                         }).catch((error) => {
                         this.LoadingSpinner=false;
@@ -564,6 +630,8 @@
                     });
                 }
                 else if(!this.NewMainRegisterNot_ADDED){
+                    this.LoadingSpinner=false;
+
                     this.createTransaction();
                 }
 
@@ -585,12 +653,15 @@
 
                     formData.append('MainTradeRegisterNumber',this.MainTradeRegister.number);
 
+                    formData.append('revisingManager_id',this.ChoosenRevisingManagerID);
+
                     axios.post(route('Transactions.store', [this.created_institution.id, this.ChoosenReviserID] ),formData)
                         .then(({data}) => {
 
                             this.NewTransactionNot_ADDED = false;
                             this.$parent.Transaction = data[0];
                             this.ValidationErrors = '';
+                            this.LoadingSpinner=false;
 
                             this.createBranchedRegisters();
                         }).catch((error) => {

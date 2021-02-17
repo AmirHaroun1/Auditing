@@ -1,6 +1,7 @@
 <template>
     <div>
-        <form class="form-group"  enctype="multipart/form-data" @submit.prevent="[ (UploadProgress == null) ? UploadDocuments() : DeleteDocuments() ]">
+
+        <form class="form-group"  enctype="multipart/form-data" @submit.prevent="UploadDocuments()">
             <div class="row">
                 <div class="col-md-7">
                     <div class="row">
@@ -9,7 +10,7 @@
                         </div>
                         <div v-if="UploadProgress" class="col-md-6 " :style="[UploadIsSuccess ? {color: 'green'} : {color : 'red'} ]">
                             <h3>عدد الملفات :
-                                {{UploadedDocumentsPath.length}}
+                                {{UploadedDocuments.length}}
                                 ,
                                 {{UploadMessage}}
                             </h3>
@@ -27,20 +28,20 @@
 
                 </div>
                 <div class="col-md-3 justify-content-between">
-
-                    <input type="file" ref="FileContainer" class="form-control" multiple>
+                    <input type="file" ref="FileContainer" class="form-control" accept=".jpeg,.png,.svg,.jpg,.pdf" multiple>
                 </div>
                 <div class="col-md-2">
-                    <button v-if="!UploadIsSuccess" class="btn btn-success btn-lg">تحميل</button>
+                    <button  class="btn btn-success btn-sm">تحميل</button>
                 </div>
             </div>
         </form>
         <ol >
-            <li v-for="(documentName,index) in UploadedDocumentsName">
-                <a :href="DownloadDocumentLink(UploadedDocumentsPath[index])" target="_blank" >{{documentName}}</a>
+            <li v-for="document in UploadedDocuments" class="justify-content-between" style="margin-top: 20px">
+                <a :href="DownloadDocumentLink(document.DocumentPath,document.original_name)" target="_blank" >{{document.original_name}}</a>
+                <button @click="DeleteDocuments(document)" class="btn btn-danger btn-md" >حذف</button>
             </li>
         </ol>
-        <button v-if="UploadIsSuccess" @click="DeleteDocuments()" class="btn btn-danger btn-lg">حذف</button>
+        <hr>
     </div>
 </template>
 
@@ -48,8 +49,9 @@
     export default {
         props :{
             'document' : Object,
+
         },
-        name : "uploadDocumentForm",
+        name : "ManageDocumentForm",
         data (){
             return{
                 transaction : this.$parent.Transaction,
@@ -57,14 +59,20 @@
                 UploadProgress : null,
                 UploadMessage: '',
                 UploadIsSuccess : '',
-                UploadedDocumentsPath : [],
-                UploadedDocumentsName:[],
+                UploadedDocuments : [],
                 //remove documents
                 DeleteProgress : null,
                 DeleteMessage: '',
                 DeleteIsSuccess : '',
                 DeletedCount : 0,
             }
+        },
+        created() {
+           if(this.document.transactions.length){
+               this.document.transactions.forEach((document)=>{
+                   this.UploadedDocuments.push(document.pivot);
+               });
+           }
         },
         methods : {
 
@@ -79,13 +87,11 @@
             },
 
             uploadFiles(onUploadProgress) {
-                let formData = new FormData();
 
                 if (this.$refs.FileContainer.files.length > 0) {
-
                     Array.prototype.forEach.call(this.$refs.FileContainer.files, file => {
-
-                        formData.append("file", file);
+                        let formData = new FormData();
+                        formData.append('file', file);
                         return axios.post(route('TransactionDocuments.AddDocument', [this.transaction.id, this.document.id]), formData, {
                             headers: {
                                 'Content-Type': 'multipart/form-data'
@@ -95,8 +101,8 @@
                             .then(({data}) => {
                                 this.UploadMessage = 'تم الرفع بنجاح';
                                 this.UploadIsSuccess = true;
-                                this.UploadedDocumentsPath.push(...data);
-                                this.UploadedDocumentsName.push(file.name);
+                                console.log(data);
+                                this.UploadedDocuments.push({'id':data.FileID,'original_name':data.FileName,'DocumentPath':data.FilePath});
                             })
                             .catch((error) => {
                                 console.log(error);
@@ -110,42 +116,38 @@
                 }
             },
 
-            DeleteDocuments() {
+            DeleteDocuments(file) {
                 this.DeleteProgress = 0;
                 this.UploadProgress = null;
                 this.UploadIsSuccess = false;
-
-                this.DeleteFiles()
+                    this.DeleteFiles(file);
             },
 
-            DeleteFiles() {
-                this.UploadedDocumentsPath.forEach( (FilePath, index) => {
+            DeleteFiles(file) {
                     let formData = new FormData();
                     formData.append("_method", 'DELETE');
-                    formData.append("FilePath", FilePath);
-                    return axios.post(route('TransactionDocuments.removeDocument', [this.document.id]), formData, {
+                    formData.append("FilePath", file.DocumentPath);
+                    return axios.post(route('TransactionDocuments.removeDocument', [file.id]), formData, {
                         headers: {
                             'Content-Type': 'multipart/form-data'
                         },
                     })
                         .then((res)=>{
-                                this.DeleteMessage = 'تم الحذف';
+                                this.DeleteMessage = 'تم الحذف بنجاح';
                                 this.DeleteIsSuccess = true;
                                 this.DeleteProgress = 100;
                                 this.DeletedCount++;
+                                this.UploadedDocuments.splice(this.UploadedDocuments.indexOf(file),1);
 
                         }).catch((error) =>{
                                 console.log(error);
                                 this.DeleteMessage = 'خطأ لم يتم الحذف';
                                 this.DeleteIsSuccess = false;
                             });
-                });
-                this.UploadedDocumentsPath = [];
-                this.UploadedDocumentsName = [];
             },
-            DownloadDocumentLink(path){
+            DownloadDocumentLink(path,name){
                 path = path.replace('InstitutionsDocuments/','');
-                return route('TransactionDocuments.DownloadDocument',path);
+                return route('TransactionDocuments.DownloadDocument',[path,name]);
             }
         }
     }

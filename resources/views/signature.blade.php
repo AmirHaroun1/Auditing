@@ -9,7 +9,7 @@
     <div id="app"  style="padding-top: 50px">
         <div class="row">
             <div class="col-md-12">
-                <partner-signature :Auth-User="{{json_encode(auth()->user())}}"></partner-signature>
+                <employee-signature :Auth-User="{{json_encode(auth()->user())}}"></employee-signature>
             </div>
         </div>
     </div>

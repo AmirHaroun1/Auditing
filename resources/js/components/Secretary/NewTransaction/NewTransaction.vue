@@ -86,10 +86,10 @@
                         <new-agent-form></new-agent-form>
                     </div>
                     <div v-else-if="SectionStage == 3" id="NewDocuments_TransactionFourthStage">
-                        <new-documents-upload-form></new-documents-upload-form>
+                        <documents-management-section></documents-management-section>
                     </div>
                     <div v-else-if="SectionStage == 4" id="Payment_TransactionFifthStage">
-                        <payment-details-form></payment-details-form>
+                        <payment-details-form :Transaction="Transaction"></payment-details-form>
                     </div>
 
                 </div>
@@ -157,10 +157,10 @@
                         <new-agent-form v-else-if="this.Agent == null"></new-agent-form>
                     </div>
                     <div v-else-if="SectionStage == 3" id="NewDocumentsExistingCompany_TransactionFourthStage">
-                        <new-documents-upload-form></new-documents-upload-form>
+                        <documents-management-section></documents-management-section>
                     </div>
                     <div v-else-if="SectionStage == 4" id="PaymentExistingCompany_TransactionFifthStage">
-                        <payment-details-form></payment-details-form>
+                        <payment-details-form :Transaction="Transaction"></payment-details-form>
                     </div>
 
                 </div>
@@ -175,11 +175,7 @@
 
 
 <script>
-    import  {NewCompanyForm} from './NewCompanyForm.vue';
-    import  {ExistingCompanyForm} from './ExistingCompanyForm.vue';
-    import  {NewAgentForm} from './NewAgentForm.vue';
-    import  {EditAgentForm} from './EditAgentForm.vue';
-    import {PaymentDetailsForm} from './PaymentDetailsForm';
+
     export default {
         data()
         {

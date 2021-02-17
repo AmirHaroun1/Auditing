@@ -13,8 +13,29 @@ class CreateAccountLVL2STable extends Migration
      */
     public function up()
     {
-        Schema::create('account_l_v_l2_s', function (Blueprint $table) {
+        Schema::create('accounts_lvl_2', function (Blueprint $table) {
             $table->id();
+
+
+            $table->unsignedBigInteger('code');
+            $table->string('name');
+            $table->text('procedures')->default('');
+            $table->text('policies')->default('');
+            $table->text('international_measurement')->default('');
+            $table->text('accounting_term')->default('');
+
+            $table->text('considerations')->nullable()->default('');
+            $table->text('study')->nullable()->default('');
+            $table->text('second_study')->nullable()->default('');
+
+            $table->foreignId('parent_id')->nullable();
+            $table->foreign('parent_id')
+                ->references('id')
+                ->on('accounts_lvl_1')
+                ->onDelete('cascade');
+
+            $table->boolean('is_related_party')->nullable();
+
             $table->timestamps();
         });
     }
@@ -26,6 +47,6 @@ class CreateAccountLVL2STable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('account_l_v_l2_s');
+        Schema::dropIfExists('accounts_lvl_2');
     }
 }

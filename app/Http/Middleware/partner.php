@@ -15,6 +15,10 @@ class partner
      */
     public function handle($request, Closure $next)
     {
+        if (auth()->user()->role != 'شريك اداري')
+        {
+            return abort(403, 'Unauthorized action.');
+        }
         return $next($request);
     }
 }

@@ -38,7 +38,7 @@
                     <th>السنة المالية (هجري)</th>
                 </tr>
                 <tr v-if="SearchedTransactions.length" v-for="transaction in SearchedTransactions">
-                    <td><a :href="route('transactions.edit.partner',transaction.id)"> {{transaction.MainTradeRegisterNumber}}</a></td>
+                    <td><a :href="route('RevisingGuid.index.archive',transaction.id)"> {{transaction.MainTradeRegisterNumber}}</a></td>
                     <td>{{transaction.created_at}}</td>
                     <td>{{transaction.hijri_created_at}}</td>
                     <td><h4  style="color: red">{{transaction.status}}</h4></td>
@@ -47,7 +47,7 @@
                 </tr>
                 <tr v-if="!SearchedTransactions.length" v-for="transaction in Transactions">
 
-                    <td><a :href="route('transactions.edit.partner',transaction.id)"> {{transaction.MainTradeRegisterNumber}}</a></td>
+                    <td><a :href="route('RevisingGuid.index.archive',transaction.id)"> {{transaction.MainTradeRegisterNumber}}</a></td>
                     <td>{{transaction.created_at}}</td>
                     <td>{{transaction.hijri_created_at}}</td>
                     <td><h4  style="color: red">{{transaction.status}}</h4></td>

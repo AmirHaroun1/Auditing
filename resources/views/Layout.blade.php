@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <title>
@@ -12,12 +12,8 @@
     <link rel="stylesheet" href="{{asset('bootstrap/css/bootstrap.min.css')}}">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="{{asset('https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css')}}">
-    <!-- Ionicons 2.0.0 -->
-    <link rel="stylesheet" href="{{asset('https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css')}}">
     <!-- Theme style -->
     <link rel="stylesheet" href="{{asset('dist/css/AdminLTE.min.css')}}">
-
-    <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker-bs3.css')}}">
 
     <!-- AdminLTE Skins. Choose a skin from the css/skins
          folder instead of downloading all of them to reduce the load. -->
@@ -30,7 +26,6 @@
     <link rel="stylesheet" href="{{asset('plugins/jvectormap/jquery-jvectormap-1.2.2.css')}}">
 
     <!-- Daterange picker -->
-    <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker-bs3.css')}}">
 
     <link rel="stylesheet" href="{{asset('dist/fonts/fonts-fa.css')}}">
     <link rel="stylesheet" href="{{asset('dist/css/bootstrap-rtl.min.css')}}">
@@ -48,7 +43,7 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
 </head>
-<body class="skin-black bg-gray sidebar-mini ">
+<body class="skin-black bg-gray sidebar-mini sidebar-collapse">
 
 @section('body')
     <!-- header logo: style can be found in header.less -->
@@ -58,7 +53,7 @@
             مكتب المحاسبة
         </a>
         <!-- Header Navbar: style can be found in header.less -->
-        <nav class="navbar navbar-static-top" role="navigation">
+        <nav class="navbar navbar-static-top margin-50" role="navigation">
             <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
                 <span class="sr-only">Toggle navigation</span>
                 <span class="icon-bar"></span>
@@ -129,7 +124,7 @@
         <section class="content-header">
 
 
-            <h1 class="">
+            <h1 class="margin-50">
                 @section('PageHeader')
                     الرئيسية
                     @auth
@@ -141,7 +136,7 @@
         </section>
 
         <!-- Main content -->
-        <section class="content">
+        <section class="content margin-50">
             <!--------------------------- Flash Messages -------------------->
             @if(\Illuminate\Support\Facades\Session::has('success'))
                 <div class="callout callout-success">

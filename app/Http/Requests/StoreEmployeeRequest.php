@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class StoreEmployeeRequest extends FormRequest
 {
@@ -25,12 +26,12 @@ class StoreEmployeeRequest extends FormRequest
     {
         return [
             //
-            'national_id' =>['unique:users','max:10','min:10'],
-            'role'=>['required'],
-            'name' => [ 'string', 'max:255', 'min:3'],
-            'phone'=>['unique:users','min:10','max:10'],
-            'email' => ['unique:users','email'],
-            'password' => ['string','min:8','max:255','confirmed'],
+            'national_id' =>['bail','unique:users'],
+            'role'=>['bail','required'],
+            'name' => [ 'bail','string', 'max:255', 'min:3'],
+            'phone'=>['bail','unique:users'],
+            'email' => ['bail','unique:users','email'],
+            'password' => ['bail','string','min:8','max:255','confirmed'],
 
         ];
     }
@@ -50,8 +51,7 @@ class StoreEmployeeRequest extends FormRequest
 
             'name.string' => 'الأسم يجب يتكون من أحرف',
 
-            'phone.max' => 'رقم الجوال يجب أن يتكون من 10 أرقام',
-            'phone.min' => 'رقم الجوال يجب أن يتكون من 10 أرقام',
+
             'phone.unique' => 'رقم الجوال مسجل بالفعل',
 
             'email.unique' => 'هذا البريد الألكنرونى مسجل بالفعل',

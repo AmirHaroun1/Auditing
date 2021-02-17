@@ -17,10 +17,10 @@ class CreateDocumentsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('code')->nullable();
+
             $table->timestamps();
         });
     }
-
     /**
      * Reverse the migrations.
      *
@@ -28,6 +28,6 @@ class CreateDocumentsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('document');
+        Schema::dropIfExists('documents');
     }
 }

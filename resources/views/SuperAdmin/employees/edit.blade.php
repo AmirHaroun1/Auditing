@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="{{asset('plugins/select2/select2.min.css')}}">
 @endsection
 @section('content')
-    <form method="post" action="{{route('employees.update',$employee)}}"  style="padding-top:70px">
+    <form method="post" enctype='multipart/form-data' action="{{route('employees.update',$employee)}}"  style="padding-top:70px">
         @csrf
         @method('patch')
         <div class="row pb-4">
@@ -71,9 +71,12 @@
                     <option selected>{{$employee->role}}</option>
                     <option value="سكرتير">سكرتير</option>
                     <option value="مدقق">مدقق</option>
-                    <option value="مراجع فنى">مراجع فنى</option>
+                    <option value="مراجع فني">مراجع فني</option>
                     <option value="مدير مراجعة">مدير مراجعة</option>
                     <option value="سكرتير تنفيذي">سكرتير تنفيذي</option>
+                    <option value="شريك اداري">شريك اداري</option>
+                    <option value="مدير أداري">مدير أداري</option>
+
                 </select>
 
             </div>
@@ -138,7 +141,28 @@
             </div>
             @enderror
         </div>
-            <button type="submit" class="btn btn-block btn-warning btn-flat mb-4">تعديل بيانات الموظف</button>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group ">
+
+                    <label>الرمز</label>
+                    <input name="code" class="form-control" value="{{$employee->code}}" placeholder="الرمز"  type="text" required>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-bottom mt-20">
+            <div class="form-group ">
+
+                <div class="col-md-4">
+                    <input ref="signature" name="signature" class="form-control" type="file" accept=".APNG,.AVIF,.GIF,.JPEG,.PNG,.SVG" >
+                </div>
+
+                <div class="col-md-3">
+                    <img src="{{$employee->signatureImage}}" class="img-responsive">
+                </div>
+            </div>
+        </div>
+            <button type="submit" class="btn btn-block btn-warning btn-flat margin-bottom mt-20">تعديل بيانات الموظف</button>
 
     </form>
     <div class="row" style="margin-top: 20px">
@@ -146,14 +170,14 @@
             <button  data-toggle="modal" data-target="#DeleteWarning" class="btn btn-block btn-danger btn-flat">حذف الموظف</button>
         </div>
         <!-- Modal -->
-        <div id="DeleteWarning" class="modal fade" role="dialog">
+        <div id="DeleteWarning" class="modal modal-large fade" role="dialog">
             <div class="modal-dialog">
 
                 <!-- Modal content-->
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Modal Header</h4>
+                        <h4 class="modal-title">حذف الموظف</h4>
                     </div>
                     <div class="modal-body row text-center">
                         <div class="col-md-6">
@@ -164,7 +188,7 @@
                             <form action="{{route('employees.destroy',$employee)}}" method="post">
                                 @csrf
                                 @method('delete')
-                                 <button class="btn btn-flat btn-danger"  type="submit" >حذف</button>
+                                 <button class="btn btn-flat btn-lg btn-danger"  type="submit" >حذف</button>
                             </form>
 
                         </div>

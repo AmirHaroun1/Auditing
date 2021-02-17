@@ -15,6 +15,10 @@ class auditor
      */
     public function handle($request, Closure $next)
     {
+        if (auth()->user()->role != 'مدقق')
+        {
+            return abort(403, 'Unauthorized action.');
+        }
         return $next($request);
     }
 }

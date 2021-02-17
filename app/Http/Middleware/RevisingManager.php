@@ -15,6 +15,10 @@ class RevisingManager
      */
     public function handle($request, Closure $next)
     {
+        if (auth()->user()->role != 'مدير مراجعة')
+        {
+            abort(403, 'Unauthorized action.');
+        }
         return $next($request);
     }
 }

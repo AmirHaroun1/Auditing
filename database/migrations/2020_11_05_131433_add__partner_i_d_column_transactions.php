@@ -15,6 +15,12 @@ class AddPartnerIDColumnTransactions extends Migration
     {
         Schema::table('transactions', function (Blueprint $table) {
             //
+
+            $table->foreignId('partner_id')->nullable()->after('auditor_id'); // الشريك الادراى
+            $table->foreign('partner_id')
+                ->references('id')
+                ->on('users');
+
         });
     }
 
@@ -27,6 +33,7 @@ class AddPartnerIDColumnTransactions extends Migration
     {
         Schema::table('transactions', function (Blueprint $table) {
             //
+            $table->foreignId('partner_id');
         });
     }
 }

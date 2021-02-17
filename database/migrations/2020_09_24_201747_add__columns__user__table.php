@@ -14,11 +14,13 @@ class AddColumnsUserTable extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->string('national_id')->unique()->after('id');
-            $table->string('phone')->unique()->after('name');
-            $table->string('role')->after('email_verified_at');
-            $table->date('birth_date')->after('phone');
-            $table->date('national_id_date')->after('national_id');
+            $table->string('national_id')->after('id')->nullable();
+            $table->string('phone')->after('name')->nullable();
+            $table->string('role')->after('email_verified_at')->nullable();
+            $table->date('birth_date')->after('phone')->nullable();
+            $table->date('national_id_date')->after('national_id')->nullable();
+            $table->text('signature')->after('phone')->nullable();
+
         });
     }
 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\agent;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateAgentRequest extends FormRequest
 {
@@ -13,7 +15,7 @@ class UpdateAgentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -23,8 +25,35 @@ class UpdateAgentRequest extends FormRequest
      */
     public function rules()
     {
+        $agent = $this->route('agent');
+
         return [
             //
+            'national_id' =>['max:10','min:10'],
+            'role'=>['required'],
+            'name' => [ 'string', 'max:255', 'min:3'],
+            'phone'=>['min:10','max:10'],
+            'email' => ['required','email'],
+        ];
+    }
+    public function messages()
+    {
+        return [
+
+            'national_id.min' => 'رقم الهوية يجب أن يتكون من 10 أرقام',
+            'national_id.max' => 'رقم الهوية يجب أن يتكون من 10 أرقام',
+            'national_id.required' => 'هذا الحقل مطلوب',
+
+            'role.required' => 'هذا الحقل مطلوب',
+
+            'name.min' => 'الأسم يجب أن يكون 3 أحرف على الأقل',
+            'name.max' => 'الأسم يجب أن يكون 255 حرف على الأكثر',
+
+            'name.string' => 'الأسم يجب يتكون من أحرف',
+
+            'phone.max' => 'رقم الجوال يجب أن يتكون من 10 أرقام',
+            'phone.min' => 'رقم الجوال يجب أن يتكون من 10 أرقام',
+
         ];
     }
 }

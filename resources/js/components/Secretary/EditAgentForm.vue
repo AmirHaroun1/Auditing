@@ -88,9 +88,9 @@
 
                 </div>
 
-                <div class="row text-center center content-align-center">
+                <div class="row text-center ">
                     <div class="col-md-12 ">
-                        <button class="btn btn-block btn-success btn-lg" style="padding: 15px;width:230px" >التالي</button>
+                        <button class="btn btn-block btn-success btn-lg" style="padding: 15px;width:230px" >حفظ</button>
                     </div>
                 </div>
             </form>

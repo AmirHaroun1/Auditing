@@ -17,12 +17,12 @@ class CreateInstitutionsTable extends Migration
             $table->id();
             $table->string('name')->nullable(); //الأسم
             $table->unsignedBigInteger('number')->unique(); //رقم الشركة
-            $table->string('address')->nullable(); // عنوان الشركة
+            $table->text('address')->nullable(); // عنوان الشركة
             $table->text('business_activity')->nullable(); //نشاط المنشأة
             $table->string('legal_entity')->nullable(); //الكيان القانوني
             $table->string('angel_interests')->nullable(); //اهتمامات الملاك
             $table->string('nature')->nullable(); //طبيعة ملكية المنشأة وكيفية تمويلها
-
+            $table->string('date_type')->nullable();
             $table->unsignedBigInteger('charity_num')->nullable(); //الرقم المميز لدى هيئة الذكاة
             $table->unsignedBigInteger('extra_tax_num')->nullable(); // رقم الضريبة المضافة
 

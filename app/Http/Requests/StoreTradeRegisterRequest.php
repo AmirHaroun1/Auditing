@@ -13,7 +13,7 @@ class StoreTradeRegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -25,6 +25,22 @@ class StoreTradeRegisterRequest extends FormRequest
     {
         return [
             //
+            'number'=> 'unique:trade_registers|numeric|min:0|not_in:0',
+            'EndDate'=> 'after:date',
+        ];
+    }
+    public function messages()
+    {
+        return [
+            //
+            'number.unique' =>
+                'رقم السجل'
+                .request()->input('number').
+                'مسجل بالفعل',
+            'number.numeric' => 'برجاء ادخال رقم سجل صحيح',
+            'number.min' => 'برجاء ادخال رقم سجل صحيح',
+            'number.not_in' => 'برجاء ادخال رقم سجل صحيح',
+            'EndDate.after'=>'تاريخ الانتهاء يجب ان يكون بعد تاريخ الاصدار'
         ];
     }
 }

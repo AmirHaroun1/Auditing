@@ -14,4 +14,20 @@ class employee extends User
         static::addGlobalScope(new EmployeesScope);
     }
 
+    public function updateUserInfo($request){
+
+        if($request->signature){
+            if(auth()->user()->signature){
+                unlink('storage/'.auth()->user()->signature);
+            }
+            $signaturePath = $request->file('signature')->storeAs(
+                'PartnersSignatures',
+                $request->file('signature')->getClientOriginalName()
+            );
+            $this->update(['signature'=>$signaturePath]);
+        }
+        else{
+            $this->update($request->all());
+        }
+    }
 }

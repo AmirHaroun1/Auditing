@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="{{asset('plugins/select2/select2.min.css')}}">
 @endsection
 @section('content')
-    <form action="{{route('employees.store')}}" method="POST" style="padding-top:70px">
+    <form enctype='multipart/form-data' action="{{route('employees.store')}}" method="POST" style="padding-top:70px">
         @csrf
         <div class="row">
             <div class="col-lg-6 ">
@@ -30,7 +30,7 @@
                 <div class="col-lg-6">
                     <div class="form-group ">
                         <label class="float-right pt-4">تاريخ الهوية</label>
-                        <input name="national_id_date" type="date" class="form-control pb-5" autocomplete="national_id_date" value="{{old('national_id_date')}}" required>
+                        <input name="national_id_date" type="date" class="form-control pb-5" autocomplete="national_id_date" value="{{old('national_id_date')}}" >
                     </div>
                 </div>
                 @error('national_id_date')
@@ -49,7 +49,7 @@
             <div class="col-lg-6 ">
                 <div class="form-group ">
                     <label class="float-right">رقم الجوال</label>
-                    <input name="phone" type="text" class="form-control pb-5" autocomplete="phone" value="{{old('phone')}}"  placeholder="رقم الجوال" required>
+                    <input name="phone" type="text" class="form-control pb-5" autocomplete="phone" value="{{old('phone')}}"  placeholder="رقم الجوال" >
                 </div>
                 @error('phone')
                 <div class="col-md-6">
@@ -67,9 +67,11 @@
                     <option selected disabled>-- أختر وظيفة -- </option>
                     <option value="سكرتير">سكرتير</option>
                     <option value="مدقق">مدقق</option>
-                    <option value="مراجع فنى">مراجع فنى</option>
+                    <option value="مراجع فني">مراجع فني</option>
                     <option value="مدير مراجعة">مدير مراجعة</option>
                     <option value="سكرتير تنفيذي">سكرتير تنفيذي</option>
+                    <option value="شريك اداري">شريك اداري</option>
+                    <option value="مدير أداري">مدير أداري</option>
                 </select>
 
             </div>
@@ -105,7 +107,7 @@
             <div class="col-lg-6  ">
                 <div class="form-group ">
                     <label class="float-right">تاريخ الميلاد</label>
-                    <input name="birth_date" type="date" class="form-control pb-5" autocomplete="birth_date" value="{{old('birth_date')}}" required>
+                    <input name="birth_date" type="date" class="form-control pb-5" autocomplete="birth_date" value="{{old('birth_date')}}" >
                 </div>
             </div>
             @error('birth_date')
@@ -162,7 +164,24 @@
             </div>
 
         </div>
+        <div class="row">
+            <div class="col-md-6">
+                <div class="form-group ">
 
+                    <label>الرمز</label>
+                    <input name="code" class="form-control" placeholder="الرمز"  type="text" required>
+                </div>
+            </div>
+        </div>
+        <div class="row margin-bottom mt-20">
+            <div class="form-group ">
+
+                <div class="col-md-4">
+                    <input ref="signature" name="signature" class="form-control" type="file" accept=".APNG,.AVIF,.GIF,.JPEG,.PNG,.SVG" >
+                </div>
+
+            </div>
+        </div>
         <button class="btn btn-block btn-success btn-flat">أضافة موظف</button>
     </form>
 @endsection

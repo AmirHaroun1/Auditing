@@ -19,6 +19,6 @@ class agent extends User
     }
     public function institution()
     {
-        return $this->hasOne('App\institution','agent_id');
+        return $this->hasMany('App\institution','agent_id');
     }
 }

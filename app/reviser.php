@@ -17,8 +17,9 @@ class reviser extends User
     {
         $this->attributes['role'] = 'مراجع فنى';
     }
-    public function institution()
+    public function transactions()
     {
         return $this->hasMany('App\Transaction','reviser_id');
     }
+
 }

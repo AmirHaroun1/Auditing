@@ -24,13 +24,14 @@ class UpdateEmployeeRequest extends FormRequest
      */
     public function rules()
     {
+        $employee = $this->route('employee');
+
         return [
             //
-            'national_id' =>[Rule::unique('users')->ignore($this->route('employee')),'max:10','min:10'],
-            'role'=>['required'],
+            'national_id' =>[Rule::unique('users')->ignore($employee),'max:10','min:10'],
             'name' => [ 'string', 'max:255', 'min:3'],
-            'phone'=>[Rule::unique('users')->ignore($this->route('employee')),'min:10','max:10'],
-            'email' => [Rule::unique('users')->ignore($this->route('employee')),'email'],
+            'phone'=>[Rule::unique('users')->ignore($employee),'min:10','max:10'],
+            'email' => [Rule::unique('users')->ignore($employee),'email'],
 
         ];
     }
@@ -42,8 +43,6 @@ class UpdateEmployeeRequest extends FormRequest
             'national_id.max' => 'رقم الهوية يجب أن يتكون من 10 أرقام',
             'national_id.required' => 'هذا الحقل مطلوب',
             'national_id.unique' => 'رقم الهوية مسجل بالفعل',
-
-            'role.required' => 'هذا الحقل مطلوب',
 
             'name.min' => 'الأسم يجب أن يكون 3 أحرف على الأقل',
             'name.max' => 'الأسم يجب أن يكون 255 حرف على الأكثر',

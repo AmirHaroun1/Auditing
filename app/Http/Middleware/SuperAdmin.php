@@ -17,7 +17,7 @@ class SuperAdmin
     {
         if (auth()->user()->role != 'سوبر')
         {
-            return redirect()->back();
+            return abort(403, 'Unauthorized action.');
         }
         return $next($request);
     }

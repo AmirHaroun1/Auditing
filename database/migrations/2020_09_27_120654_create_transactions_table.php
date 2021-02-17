@@ -17,33 +17,58 @@ class CreateTransactionsTable extends Migration
             $table->id();
 
             $table->unsignedInteger('financial_year')->nullable(); //السنة المالية
+            $table->unsignedInteger('MainTradeRegisterNumber')->nullable(); //رقم السجل الرئيسي
+
             $table->date('start_financial_year')->nullable(); // بداية السنة المالية
             $table->date('end_financial_year')->nullable(); //نهاية السنة المالية
 
-            $table->date('start_financial_period')->nullable(); // بداية الفتره المالية
-            $table->date('end_financial_period')->nullable();       // نهاية الفتره المالية
+            $table->string('financial_period')->nullable(); //  الفتره المالية
 
-            $table->string('measurement_standard_determinants')->nullable(); //معيار القياس
             $table->string('measurement_standard')->nullable(); //معيار القياس
-            $table->unsignedBigInteger('measurement_standard_price')->nullable(); // قيمة معيار القياس
-            $table->unsignedBigInteger('automatic_contract_value')->nullable(); //قيمة التعاقد آليا
-            $table->unsignedBigInteger('agreed_contract_value')->nullable(); //قيمة التعاقد المتفق عليها
-            $table->unsignedBigInteger('down_payment')->nullable(); //الدفعة المقدمة
-            $table->unsignedBigInteger('final_payment')->nullable(); //الدفعة النهائية
+            $table->string('measurement_standard_determinants')->nullable(); // محددات معيار القياس
 
-            $table->unsignedBigInteger('audit_fees')->nullable(); //أتعاب المراجعة
-            $table->unsignedBigInteger('zakat_deposit_fees')->nullable(); //أتعاب الذكاه
-            $table->unsignedBigInteger('other_fees')->nullable(); //أتعاب أخرى
-            $table->unsignedBigInteger('total_fees')->nullable(); //اجمالى أتعاب
-            $table->unsignedBigInteger('value_added_tax')->nullable();  //ضرائب القيمة المضافة
-            $table->string('total_amount')->nullable(); //الأجمالى
+            $table->unsignedBigInteger('agreed_contract_value')->default(0); //قيمة التعاقد المتفق عليها
+            $table->unsignedBigInteger('down_payment')->default(0); //الدفعة المقدمة
+            $table->unsignedBigInteger('final_payment')->default(0); //الدفعة النهائية
+            $table->unsignedBigInteger('zakat_deposit_fees')->default(0); //أتعاب الذكاه
+            $table->unsignedBigInteger('value_added_tax')->default(0);  //ضرائب القيمة المضافة
+            $table->unsignedBigInteger('offer_value')->default(0); //قيمة الخصم
+            $table->unsignedBigInteger('total_value')->default(0); //اجمالى أتعاب
+
             $table->string('status')->nullable(); //الحالة
+
+            $table->dateTime('start_date')->nullable();
+            $table->dateTime('end_date')->nullable();
+            $table->double('secretary_time')->default(0);
+            $table->double('fieldDelegate_time')->default(0);
+            $table->double('auditor_time')->default(0);
+            $table->double('executiveDirector_time')->default(0);
+            $table->double('Managing_partner_time')->default(0);
+            $table->double('reviser_time')->default(0);
+            $table->double('revisingManager_time')->default(0);
+            $table->double('helper_time')->default(0);
+
+
 
             $table->foreignId('reviser_id')->nullable(); // المراجع الفنى
             $table->foreign('reviser_id')
                 ->references('id')
                 ->on('users');
 
+            $table->foreignId('revisingManager_id')->nullable(); // مدير المراجع الفنى
+            $table->foreign('revisingManager_id')
+                ->references('id')
+                ->on('users');
+
+            $table->foreignId('auditor_id')->nullable(); // المدقق
+            $table->foreign('auditor_id')
+                ->references('id')
+                ->on('users');
+
+            $table->foreignId('fieldDelegate_id')->nullable(); // المندوب الميدانى
+            $table->foreign('fieldDelegate_id')
+                ->references('id')
+                ->on('users');
 
             $table->foreignId('institution_id')->nullable(); //المنشأة طالبة المراجعة
             $table->foreign('institution_id')

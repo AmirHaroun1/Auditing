@@ -26,6 +26,10 @@ class CreateDocumentsTransactionTable extends Migration
                 ->references('id')
                 ->on('documents');
 
+            $table->text('DocumentPath');
+            $table->text('original_name')->nullable();
+
+            $table->text('comment');
 
             $table->timestamps();
         });

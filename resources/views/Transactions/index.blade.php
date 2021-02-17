@@ -1,7 +1,18 @@
 @extends('Layout')
 
 @section('title')
-    - الرئيسية سكرتارية
+    @if(auth()->user()->role == 'سكرتير')
+        سكرتير - المعاملات
+
+    @elseif(auth()->user()->role == 'مراجع فنى')
+        مراجع فنى - المعاملات
+    @elseif(auth()->user()->role == 'مدقق')
+        مدقق - المعاملات
+    @elseif(auth()->user()->role == 'مدير مراجعة')
+        مدير مراجعة - المعاملات
+    @elseif(auth()->user()->role == 'سكرتير تنفيذي')
+        سكرتير تنفيذي - المعاملات
+    @endif
 @endsection
 
 @section('PageHeader')
@@ -10,6 +21,12 @@
 
         @elseif(auth()->user()->role == 'مراجع فنى')
             مراجع فنى - المعاملات
+        @elseif(auth()->user()->role == 'مدقق')
+            مدقق - المعاملات
+        @elseif(auth()->user()->role == 'مدير مراجعة')
+            مدير مراجعة - المعاملات
+        @elseif(auth()->user()->role == 'سكرتير تنفيذي')
+            سكرتير تنفيذي - المعاملات
     @endif
 @endsection
 @section('content')
@@ -40,6 +57,10 @@
                         <auditor-transactions-table></auditor-transactions-table>
                         @elseif(auth()->user()->role == 'مدير مراجعة')
                         <revising-manager-transactions-table></revising-manager-transactions-table>
+                        @elseif(auth()->user()->role == 'شريك اداري')
+                        <partner-transactions-table></partner-transactions-table>
+                        @elseif(auth()->user()->role == 'سكرتير تنفيذي')
+                        <archive-transactions-table></archive-transactions-table>
                     @endif
 
                 </div>

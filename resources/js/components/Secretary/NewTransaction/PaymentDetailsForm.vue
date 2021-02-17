@@ -54,7 +54,7 @@
 
                             <div class="row">
                                 <div class=" form-group col-md-6" style="padding-bottom: 20px">
-                                    <label class="float-right"> القيمة المضافة %</label>
+                                    <label class="float-right"> القيمة المضافة : {{value_added_tax_amount}} ريال</label>
 
                                     <input @input="CheckTotal_value()" v-model="value_added_tax_percentage" type="text" class="form-control" required>
 
@@ -64,7 +64,9 @@
                                         </h4>
                                     </div>
                                 </div>
+
                             </div>
+
                             <div class="row">
 
                                 <div class="form-group col-md-6" style="padding-bottom: 20px">
@@ -161,17 +163,12 @@
 
                     <!-- /.قيمة التعاقد -->
 
-                    <!--الأتعاب -->
-                        <hr>
-
-
-                    <!--الأتعاب/. -->
-
                     <div class="row">
                         <div class="col-md-12 ">
                             <button   class="btn btn-block btn-success btn-lg" style="padding: 15px;width:230px" >  حفظ</button>
                         </div>
                     </div>
+                    <hr>
 
                     <!--بيانات سند القبض -->
                     <div id="ReceiptVoucherInfo">
@@ -192,12 +189,10 @@
                                     <option value="دفعة أتعاب نهائية">دفعة أتعاب نهائية</option>
                                 </select>
                             </div>
-                            <div class="col-md-6 text-center">
-                                <a :href="this.PrintLink" target="_blank" class="btn btn-default btn-lg" style="margin-top:15px"><i class="fa fa-print"></i> طباعة سند قبض</a>
-                            </div>
-                            <div class="col-md-6 text-center">
-                                <a  :href="EngagementLetterLink" target="_blank" class="btn btn-default btn-lg" style="margin-top:25px"><i class="fa fa-print"></i> طباعة خطاب الأرتباط</a>
-                            </div>
+                        </div>
+                        <div class="row justify-content-between text-center">
+                                <a :href="PrintLink" target="_blank" class="btn btn-default btn-lg" style="margin-top:15px"><i class="fa fa-print"></i> طباعة سند قبض</a>
+                                <a  :href="EngagementLetterLink" target="_blank" class="btn btn-default btn-lg" style="margin-top:15px"><i class="fa fa-print"></i> طباعة خطاب الأرتباط</a>
                         </div>
 
 
@@ -217,30 +212,37 @@
 
 <script>
     export default {
+        props :{
+          'Transaction':Object,
+        },
         data() {
             return{
                 LoadingSpinner:'',
                 ValidationErrors:'',
-                measurement_standard_determinants : '',
+
                 measurement_standard_determinantsOptions :[],
-                measurement_standard : '',
                 measurement_standardOptions:[],
 
-                agreed_contract_value : '',
-                down_payment : '',
-                final_payment:'',
-                total_value:'',
-                value_added_tax_percentage : '15'+'%',
-                value_added_tax_amount : '',
-                zakat_deposit_fees : 0,
-                offer_value : 0,
+                measurement_standard_determinants : this.Transaction.measurement_standard_determinants,
+                measurement_standard : this.Transaction.measurement_standard,
 
-                status:'',
+                agreed_contract_value : this.Transaction.agreed_contract_value,
+
+                down_payment : this.Transaction.down_payment,
+                final_payment : this.Transaction.final_payment,
+                total_value : this.Transaction.total_value,
+
+                value_added_tax_percentage : '15'+'%',
+                value_added_tax_amount : this.Transaction.value_added_tax,
+                zakat_deposit_fees : this.Transaction.zakat_deposit_fees,
+                offer_value : this.Transaction.offer_value,
+                status : this.Transaction.status,
+
 
                 ReviserCompanyName:'مكتوب مسعود الرفيدى',
-                PaymentType:'',
-                financial_year :this.$parent.Transaction.financial_year,
-                collectedAmount:'',
+                PaymentType:'مقدم أتعاب',
+                PaymentValue:'',
+                financial_year :this.Transaction.financial_year,
 
             }
 
@@ -248,9 +250,11 @@
 
         created() {
             this.GetDropDowns(route('system.DropDowns.retrieve.option'));
+
         },
         methods:{
             GetDropDowns(endpoint){
+                this.LoadingSpinner = true;
                 axios.get(endpoint)
                     .then(({data})=>{
                         data.DropDownsOptions.forEach((option,index)=>{
@@ -263,11 +267,13 @@
                             }
                         })
                     })
+                this.LoadingSpinner = false;
             },
             submitPaymentData(){
                 this.LoadingSpinner = true;
                 let formData = new FormData();
 
+                formData.append('_method','PATCH');
                 formData.append('measurement_standard_determinants',this.measurement_standard_determinants);
                 formData.append('measurement_standard',this.measurement_standard);
 
@@ -281,7 +287,7 @@
                 formData.append('total_value',this.total_value);
                 formData.append('status',this.status);
 
-                axios.post(route('Transactions.storePaymentInfo',this.$parent.Transaction.id),formData)
+                axios.post(route('Transactions.update',this.Transaction.id),formData)
                 .then((res)=>{
                     this.LoadingSpinner = false;
 
@@ -308,18 +314,18 @@
         },
         computed :{
             PrintLink () {
-                if (this.PaymentType == 'دفعة أتعاب نهائية'){
-                   this.collectedAmount = this.final_payment;
+                if (this.PaymentType == 'دفعة أتعاب نهائية')
+                {
+                   this.PaymentValue = this.final_payment;
                 }else{
-                    this.collectedAmount = this.down_payment;
+                    this.PaymentValue = this.down_payment;
                 }
-              return route('Print.ReceiptVoucher',[this.$parent.Transaction.financial_year,this.$parent.Institution.name,this.PaymentType,this.collectedAmount,this.ReviserCompanyName]);
+
+              return route('Print.ReceiptVoucher',{TransactionYear:this.financial_year,CompanyName: this.$parent.Institution.name   ,   PaymentType: this.PaymentType   ,   PaymentValue: this.PaymentValue ,ReviserCompanyName : this.ReviserCompanyName}) ;
             },
             EngagementLetterLink(){
-                return route('Print.EngagementLetter',[this.$parent.Institution,this.$parent.Transaction.id]);
+                return route('Print.EngagementLetter',[this.$parent.Institution,this.Transaction]);
             }
-
-
 
         },
 

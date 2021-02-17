@@ -17,7 +17,7 @@ class Secretary
     {
         if (auth()->user()->role != 'سكرتير')
         {
-            return redirect()->back();
+            return abort(403, 'Unauthorized action.');
         }
         return $next($request);
     }

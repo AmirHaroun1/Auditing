@@ -162,6 +162,7 @@
                     this.ValidationErrors = '';
 
                     this.$parent.SectionStage = 3 ;
+                    this.LoadingSpinner = false;
 
                 }).catch((error) => {
                     this.LoadingSpinner = false;

@@ -2,7 +2,7 @@
     <div class="container box" style="margin-top: 20px">
         <div class="row">
             <div class="box-header">
-                <h2>توقيع الشريك الاداري</h2>
+                <h2>توقيع  <b >{{AuthUser.role}}</b></h2>
             </div>
             <div class="box-body">
                 <form class="form-group justify-content-between" enctype="multipart/form-data" @submit.prevent="UpdateSignature()">

@@ -1,28 +1,42 @@
 <template>
     <div class="box-body">
-        <h5 @click="[source.code[0] =='ن' ?  UpdateSelectedItem(source) : '' ]  "
-            class="verticalMenuItem cursor-pointer "
-           data-toggle="collapse" :data-target="'#'+source.code" aria-expanded="false" aria-controls="collapseExample">
+        <div  class="d-flex justify-content-between">
+                <h5 @click="[MainRevisingGuid.code[0] !='ع'  ?  SetSelectedRevisingGuid(MainRevisingGuid) : '' ]  "
+                    class="verticalMenuItem cursor-pointer "
+                    data-toggle="collapse" :data-target="'#'+MainRevisingGuid.code" aria-expanded="false" aria-controls="collapseExample">
 
-            <b v-if="source.code_alias">{{source.code_alias}}</b>
-            <b v-else>{{source.code}}</b>
-                -
-            <b v-if="source.name_alias"> {{ source.name_alias }}</b>
-            <b v-else> {{ source.name }}</b>
+                    <b v-if="MainRevisingGuid.code_alias !== null && MainRevisingGuid.code_alias !=='' ">{{MainRevisingGuid.code_alias}}</b>
+                    <b v-else>{{MainRevisingGuid.code}}</b>
+                    -
+                    <b v-if="MainRevisingGuid.name_alias !== null && MainRevisingGuid.name_alias !== '' "> {{ MainRevisingGuid.name_alias }}</b>
+                    <b v-else> {{ MainRevisingGuid.name }}</b>
 
-        </h5>
-        <div v-if="source.code[0] !='ن'" class="collapse bg-white"  :id="source.code">
-            <div class="pt-5 verticalMenuSubItem " v-for="InnerMenuItem in source.children">
-                <h5 class="cursor-pointer verticalMenuSubItemText " @click="UpdateSelectedItem(InnerMenuItem)">
-                    <b v-if="InnerMenuItem.code_alias">{{InnerMenuItem.code_alias}}</b>
+                    <i @click="UpdateRevisingGuid(MainRevisingGuid)" class="fa fa-edit pull-left fa-2x"></i>
+
+                </h5>
+
+        </div>
+
+        <div v-if="MainRevisingGuid.code[0] !='ن'" class="collapse bg-white"  :id="MainRevisingGuid.code">
+            <div class="pt-5 verticalMenuSubItem " v-for="InnerMenuItem in MainRevisingGuid.children">
+                <h5 class="cursor-pointer verticalMenuSubItemText " @click="SetSelectedRevisingGuid(InnerMenuItem)">
+                    <b v-if="InnerMenuItem.code_alias !== null && InnerMenuItem.code_alias !==''  ">{{InnerMenuItem.code_alias}}</b>
                     <b v-else>{{InnerMenuItem.code}}</b>
                     -
-                    <b v-if="InnerMenuItem.name_alias"> {{ InnerMenuItem.name_alias }}</b>
+                    <b v-if="InnerMenuItem.name_alias !== null && InnerMenuItem.name_alias !== '' "> {{ InnerMenuItem.name_alias }}</b>
                     <b v-else> {{ InnerMenuItem.name }}</b>
+
+                    <i @click="UpdateRevisingGuid(InnerMenuItem)" style="font-size:20px" class="fa fa-edit pull-left "></i>
+
                 </h5>
             </div>
         </div>
+
+
+
+
     </div>
+
 </template>
 <script>
     export default {
@@ -39,7 +53,13 @@
             }
 
         },
+        data() {
+            return{
+                MainRevisingGuid : this.source,
+            }
+        },
         methods : {
+
             dispatch (componentName, eventName, ...rest) {
                 let parent = this.$parent || this.$root
                 let name = parent.$options.name
@@ -50,15 +70,18 @@
                         name = parent.$options.name
                     }
                 }
-
                 if (parent) {
                     parent.$emit.apply(parent, [eventName].concat(rest))
                 }
             },
-            UpdateSelectedItem (InnerMenuItem) {
-                this.dispatch('ArchiveEditTransaction','checkSelectedItemChange', InnerMenuItem)
-            }
+            UpdateRevisingGuid (RevisingGuid) {
 
+                this.dispatch('RevisingGuidManagement','UpdateRevisingGuid', RevisingGuid)
+            },
+            SetSelectedRevisingGuid(RevisingGuid){
+                this.dispatch('RevisingGuidManagement','SelectedRevisingGuid', RevisingGuid)
+
+            },
         }
     }
 </script>

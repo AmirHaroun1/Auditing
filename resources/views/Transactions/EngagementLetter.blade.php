@@ -44,7 +44,7 @@
 
                     <strong style="margin-top: 20px;padding:8px;background-color: #95B3D7">
                         رقم
-                        {{$Institution->number . $Institution->TradeRegisters[0]->number }}
+                        {{$Institution->number . $Institution->MainTradeRegisters->number }}
                     </strong>
                 </h2>
 

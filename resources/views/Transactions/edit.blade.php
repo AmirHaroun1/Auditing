@@ -26,6 +26,9 @@
             <auditor-edit-transaction  :Transaction="{{$Transaction}}"></auditor-edit-transaction>
              @elseif(auth()->user()->role == 'مدير مراجعة')
             <revising-manager-edit-transaction :Transaction="{{$Transaction}}"></revising-manager-edit-transaction>
+            @elseif(auth()->user()->role == 'شريك اداري')
+            <partner-edit-transaction :Transaction="{{$Transaction}}"></partner-edit-transaction>
+
         @endif
     </div>
 @endsection

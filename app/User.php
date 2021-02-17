@@ -10,6 +10,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $appends = ['signatureImage'];
 
     protected $guarded = [];
 
@@ -23,4 +24,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    public function getSignatureImageAttribute(){
+        if($this->signature){
+            return asset('storage/'.$this->attributes['signature']);
+        }
+        else{
+            return '';
+        }
+      }
 }

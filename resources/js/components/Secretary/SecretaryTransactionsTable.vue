@@ -39,7 +39,7 @@
                     <th>السنة المالية (هجري)</th>
                 </tr>
                 <tr v-if="SearchedTransactions.length" v-for="transaction in SearchedTransactions">
-                    <td><a :href="route('transactions.edit',transaction.id)"> {{transaction.MainTradeRegisterNumber}}</a></td>
+                    <td><a :href="route('transactions.edit.secretary',transaction.id)"> {{transaction.MainTradeRegisterNumber}}</a></td>
                     <td>{{transaction.created_at}}</td>
                     <td>{{transaction.hijri_created_at}}</td>
                     <td><h4  style="color: red">{{transaction.status}}</h4></td>
@@ -48,7 +48,7 @@
                 </tr>
                 <tr v-if="!SearchedTransactions.length" v-for="transaction in Transactions">
 
-                    <td><a :href="route('transactions.edit',transaction.id)"> {{transaction.MainTradeRegisterNumber}}</a></td>
+                    <td><a :href="route('transactions.edit.secretary',transaction.id)"> {{transaction.MainTradeRegisterNumber}}</a></td>
                     <td>{{transaction.created_at}}</td>
                     <td>{{transaction.hijri_created_at}}</td>
                     <td><h4  style="color: red">{{transaction.status}}</h4></td>
@@ -121,7 +121,7 @@
             {
                 fetchTransactions(page=1){
                     this.LoadingSpinner = true;
-                    axios.get(route('transactions.All',{OrderByCase:this.OrderByCase,page}))
+                    axios.get(route('transactions.index',{OrderByCase:this.OrderByCase,page}))
                         .then(({data})=>{
 
                             this.LoadingSpinner = false;
@@ -140,7 +140,7 @@
                 search(page = 1){
                     this.LoadingSpinner = true;
 
-                    axios.get(route('transactions.All',{OrderByCase:this.OrderByCase,MainRegisterNumber:this.SearchMainRegisterNumber,page}))
+                    axios.get(route('transactions.index',{OrderByCase:this.OrderByCase,MainRegisterNumber:this.SearchMainRegisterNumber,page}))
                         .then(({data})=>{
                             this.LoadingSpinner = false;
 

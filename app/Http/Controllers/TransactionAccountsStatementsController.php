@@ -4,53 +4,54 @@ namespace App\Http\Controllers;
 
 use App\account_transaction;
 use App\AccountLVL1;
-use App\AccountLVL2;
-use App\AccountLVL3;
-use App\AccountLVL4;
 use App\Imports\AccountTransactionImport;
-use App\TransactionAccountsRepository;
+use App\TransactionAccountsStatementsRepository;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\HeadingRowImport;
 use Maatwebsite\Excel\Facades\Excel;
-class TransactionAccountsController extends Controller
+class TransactionAccountsStatementsController extends Controller
 {
     //
 
-    public function GetExcelHeader(Request $request){
 
-        $headers = (new HeadingRowImport)->toArray($request['AccountExcelFile']);
-
-        $rows = Excel::ToCollection( new AccountTransactionImport,$request['AccountExcelFile']);
-
-
-        return response()->json(['headers'=>$headers,'rows'=>$rows[0]],200);
-    }
-    public function index($AccountID,$transactionID,$AccountLevel){
-
-
-        $AccountStatements = TransactionAccountsRepository::GetTransactionAccounts($transactionID,$AccountID,$AccountLevel);
+    public function index($AccountID,$transactionID,$AccountLevel,$WithoutReadDataOnly = false){
+        $AccountStatements = TransactionAccountsStatementsRepository::GetAccountStatements($transactionID,$AccountID,$AccountLevel,$WithoutReadDataOnly);
 
         return response()->json(['statements'=>$AccountStatements],200);
     }
+    public function AllTransactionAccountsWithStatements($TransactionID){
+        $AccountsTreeWithStatements = TransactionAccountsStatementsRepository::AllTransactionAccountsWithStatements($TransactionID);
 
+        return response()->json(['AccountsTreeWithStatements'=>$AccountsTreeWithStatements],200);
+    }
+    public function branches($AccountID,$transactionID,$AccountLevel){
+        $AccountStatements = TransactionAccountsStatementsRepository::GetAccountStatementsWithBranches($transactionID,$AccountID,$AccountLevel);
+
+        return response()->json(['statements'=>$AccountStatements],200);
+    }
     public function SumOfAccountsOfTransaction($TransactionsID){
 
-        $NestedAccountsWithSum = TransactionAccountsRepository::GetSumOfTransactionsAccounts($TransactionsID)->get();
+        $NestedAccountsWithSum = TransactionAccountsStatementsRepository::GetSumOfAccountsStatements($TransactionsID)->get();
 
-        return response()->json(['NestedAccountsWithSum'=>$NestedAccountsWithSum],200);
+        return response()->json(['AccountStatementsWithSum'=>$NestedAccountsWithSum],200);
     }
-    public function update(Request $request,$TransactionAccountID){
+    public function update(Request $request,$StatementID){
+        $statement = account_transaction::findOrFail($StatementID)->update($request->all());
+        return response()->json($statement,200);
+    }
+    public function GetReadOnlyVueEditorValues($TransactionID,$AccountID,$AccountLevel){
+        $VueEditorValues = TransactionAccountsStatementsRepository::GetReadOnlyVueEditorValues($TransactionID,$AccountID,$AccountLevel);
 
-        account_transaction::findOrFail($TransactionAccountID)->update($request->all());
-        return response()->json('');
+        return response()->json(['VueEditorValues'=>$VueEditorValues],200);
+
     }
     public function store(Request $request,$transactionID){
-        $AddedAccountID = TransactionAccountsRepository::StoreNewTransactionAccount($request,$transactionID);
+        $AddedAccountID = TransactionAccountsStatementsRepository::StoreNewAccountStatement($request,$transactionID);
         return response()->json($AddedAccountID);
 
     }
-    public function delete($accountTransactionID){
-        account_transaction::destroy($accountTransactionID);
+    public function delete($StatementID){
+        account_transaction::destroy($StatementID);
         return response()->json('',200);
     }
 }

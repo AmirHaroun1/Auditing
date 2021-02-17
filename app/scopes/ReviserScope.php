@@ -17,6 +17,6 @@ class ReviserScope implements Scope
      */
     public function apply(Builder $builder, Model $model)
     {
-        $builder->where('role','LIKE','مراجع فنى');
+        $builder->where('role','LIKE','مراجع فني');
     }
 }

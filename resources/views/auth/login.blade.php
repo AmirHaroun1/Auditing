@@ -37,8 +37,6 @@
             </div>
             <div class="footer text-center">
                 <button type="submit" class="btn bg-olive btn-block">سجل دخول</button>
-
-                <a href="{{route('register')}}" class="text-center">تسجيل حساب كـعميل</a>
             </div>
         </form>
 

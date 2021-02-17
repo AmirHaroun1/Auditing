@@ -235,78 +235,80 @@
 
                 <!-- Branched Register Details ------>
 
-                    <h3 class="box-header">السجلات الفرعية</h3>
-                    <div class="row" style="padding-top: 10px" v-for="register in BranchedRegisters">
+                <h3 class="box-header">السجلات الفرعية</h3>
+
+
+                <!----- Add Branched Register ------->
+                <form id="BranchRegisterForm" @submit.prevent="AddBranchedRegister()">
+                    <div class="row" style="padding-top:15px">
                         <div class="col-md-3">
                             <label class="float-right">رقم السجل </label>
-                            <input type="number" v-model="register.number" class="form-control" >
+                            <input type="number" v-model="NewBranchedRegister.number" class="form-control"  required>
                         </div>
                         <div class="col-md-3">
                             <label class="float-right">مكان اصدار السجل </label>
-                            <input type="text" v-model="register.production_place" class="form-control">
+                            <input type="text" v-model="NewBranchedRegister.production_place" class="form-control" required>
                         </div>
                         <div class="col-md-3">
                             <label class="float-right"> تاريخ اصدار السجل </label>
-                            <input type="date"  v-model="register.date" class="form-control" >
+                            <input type="date"  v-model="NewBranchedRegister.date" class="form-control"  required>
                         </div>
                         <div class="col-md-3">
                             <label class="float-right"> تاريخ انتهاء السجل </label>
-                            <input type="date"  v-model="register.EndDate" class="form-control" >
+                            <input type="date"  v-model="NewBranchedRegister.EndDate" class="form-control"  required>
                         </div>
                         <div class="col-md-3 justify-content-between">
-                            <a @click="UpdateRegister(register)" class="btn btn-info btn-md" style="margin-top:5px">تعديل </a>
-                            <a @click="DeleteRegister(register)" class="btn btn-danger btn-md" style="margin-top:5px">حذف </a>
+                            <button type="submit" form="BranchRegisterForm"  class="btn btn-success btn-md" style="margin-top:5px">أضافة </button>
                         </div>
-
-
                     </div>
-                <!----- Add Branched Register ------->
-                        <form id="BranchRegisterForm" @submit.prevent="AddBranchedRegister()">
-                            <div class="row" style="padding-top:15px">
-                                <div class="col-md-3">
-                                    <label class="float-right">رقم السجل </label>
-                                    <input type="number" v-model="NewBranchedRegister.number" class="form-control"  required>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="float-right">مكان اصدار السجل </label>
-                                    <input type="text" v-model="NewBranchedRegister.production_place" class="form-control" required>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="float-right"> تاريخ اصدار السجل </label>
-                                    <input type="date"  v-model="NewBranchedRegister.date" class="form-control"  required>
-                                </div>
-                                <div class="col-md-3">
-                                    <label class="float-right"> تاريخ انتهاء السجل </label>
-                                    <input type="date"  v-model="NewBranchedRegister.EndDate" class="form-control"  required>
-                                </div>
-                                <div class="col-md-3 justify-content-between">
-                                    <button type="submit" form="BranchRegisterForm"  class="btn btn-success btn-md" style="margin-top:5px">أضافة </button>
-                                </div>
-                            </div>
 
-                            <div v-if="ValidationErrors.number && CompanyError == false"   style="margin-top:10px">
-                                <h4 class="  font-weight-bold" style="color:red">
-                                    {{ ValidationErrors.number[0] }}
-                                </h4>
-                            </div>
-                            <div v-if="ValidationErrors.EndDate  && CompanyError == false"   style="margin-top:10px">
-                                <h4 class="  font-weight-bold" style="color:red;padding-top: 10px">
-                                    {{ ValidationErrors.EndDate[0] }}
-                                </h4>
-                            </div>
+                    <div v-if="ValidationErrors.number && CompanyError == false"   style="margin-top:10px">
+                        <h4 class="  font-weight-bold" style="color:red">
+                            {{ ValidationErrors.number[0] }}
+                        </h4>
+                    </div>
+                    <div v-if="ValidationErrors.EndDate  && CompanyError == false"   style="margin-top:10px">
+                        <h4 class="  font-weight-bold" style="color:red;padding-top: 10px">
+                            {{ ValidationErrors.EndDate[0] }}
+                        </h4>
+                    </div>
                 </form>
 
                 <!----- /.Add Branched Register ------->
+
+                <div class="row" style="padding-top: 10px" v-for="register in BranchedRegisters">
+                            <div class="col-md-3">
+                                <label class="float-right">رقم السجل </label>
+                                <input type="number" v-model="register.number" class="form-control" >
+                            </div>
+                            <div class="col-md-3">
+                                <label class="float-right">مكان اصدار السجل </label>
+                                <input type="text" v-model="register.production_place" class="form-control">
+                            </div>
+                            <div class="col-md-3">
+                                <label class="float-right"> تاريخ اصدار السجل </label>
+                                <input type="date"  v-model="register.date" class="form-control" >
+                            </div>
+                            <div class="col-md-3">
+                                <label class="float-right"> تاريخ انتهاء السجل </label>
+                                <input type="date"  v-model="register.EndDate" class="form-control" >
+                            </div>
+                            <div class="col-md-3 justify-content-between">
+                                <a @click="UpdateRegister(register)" class="btn btn-info btn-md" style="margin-top:5px">تعديل </a>
+                                <a @click="DeleteRegister(register)" class="btn btn-danger btn-md" style="margin-top:5px">حذف </a>
+                            </div>
+
+
+                        </div>
 
                 <!-- /.Branched Register Details---->
 
                 <!----- Choose revisers Form Content -->
                 <div class="row" id="chooseRevisers">
-                    <h3 class="box-header"> المراجع الفنى</h3>
                     <div class="col-md-6" style="padding-bottom: 20px">
-
+                        <h3 class="box-header"> المراجع الفنى</h3>
                         <select v-model="ChoosenReviserID" class="form-control" required>
-                            <option v-for="reviser in revisers" :value="reviser.id">
+                            <option v-if="revisers.length" v-for="reviser in revisers" :value="reviser.id">
                                 الكود :
                                 {{reviser.id}}
 
@@ -316,13 +318,23 @@
                         </select>
 
                     </div>
+                    <div class="col-md-6" style="padding-bottom: 20px">
+                        <h3 class="box-header">مدير المراجعة</h3>
+                        <select v-model="ChoosenRevisingManagerID" class="form-control" required>
+                            <option v-if="revisingManagers.length" v-for="revisingManager in revisingManagers" :value="revisingManager.id">
+                                الكود :
+                                {{revisingManager.id}}
+
+                                الأسم :
+                                {{revisingManager.name}}
+                            </option>
+                        </select>
+
+                    </div>
                 </div>
                 <!----- /.Choose revisers Form Content -->
 
-                <div class="col-md-12">
-                    <hr>
-                </div>
-
+                <hr>
                 <div class="row">
                     <div class="col-md-12 ">
                         <button  class="btn btn-block btn-success btn-lg" form="CreateTransactionForm" style="padding: 15px;width:230px" >التالى</button>
@@ -347,17 +359,11 @@
             return {
                 LoadingSpinner:'',
                 ValidationErrors:'',
-                revisers : [],
-                ChoosenReviserID : '',
+
                 institution: this.$parent.Institution,
                 MainTradeRegister : this.$parent.TradeRegister,
                 BranchedRegisters:[],
 
-                legal_entityOptions:[],
-                angel_interestsOptions:[],
-                natureOptions:[],
-                cityOptions:[],
-                districtOptions:[],
                 /////  create Transaction Data ///////////
                 transaction : {
                     financial_year : '',
@@ -380,20 +386,27 @@
                 RestOfAddress:'',
                 CompanyError: false,
 
+
+                legal_entityOptions:[],
+                angel_interestsOptions:[],
+                natureOptions:[],
+                cityOptions:[],
+                districtOptions:[],
+
+                revisers : [],
+                revisingManagers : [],
+
+                ChoosenReviserID : '',
+                ChoosenRevisingManagerID : '',
+
             }
         },
         created() {
-            this.GetRevisers(route('reviser.index'));
+            this.GetRevisers(route('employee.type','مراجع فني'));
+            this.GetRevisingManagers(route('employee.type','مدير مراجعة'));;
             this.GetDropDowns(route('system.DropDowns.retrieve.option'));
 
-            //get the branched registers from the registers array
-
-            this.$parent.Institution.trade_registers.forEach((register) => {
-                    if(register.type == 'فرعي'){
-                        this.BranchedRegisters.push(register);
-                    }
-            });
-
+            this.BranchedRegisters = this.$parent.Institution.branched_trade_register;
             this.City = this.institution.address.split(',')[0];
             this.District = this.institution.address.split(',')[1];
             this.RestOfAddress = this.institution.address.split(',')[2];
@@ -403,8 +416,17 @@
             GetRevisers(endpoint) {
                 axios.get(endpoint)
                     .then(({data}) => {
-                        data.revisers.forEach((reviser) => {
+                        data.employees.forEach((reviser) => {
                             this.revisers.push(reviser);
+                        });
+                    })
+            },
+            // get all the RevisingManagers in the system and put them in the array
+            GetRevisingManagers(endpoint) {
+                axios.get(endpoint)
+                    .then(({data}) => {
+                        data.employees.forEach((revisingManager) => {
+                            this.revisingManagers.push(revisingManager);
                         });
                     })
             },
@@ -448,7 +470,7 @@
                 axios.post(route('TradeRegister.update',register.id),formData)
                     .then(({data})=>{
                         this.LoadingSpinner = false;
-                        this.$toast.success('<i class="fas fa-thumbs-up"></i>',
+                        this.$toast.success('.',
                             'قد تم تعديل  بيانات السجل بنجاح '
                             ,{timout:2000});
                         this.ValidationErrors = '';
@@ -471,7 +493,7 @@
                     .then(res=>{
                         this.LoadingSpinner = false;
 
-                        this.$toast.success('<i class="fas fa-thumbs-up"></i>',
+                        this.$toast.success('.',
                             'قد تم حذف  بيانات السجل بنجاح '
                             ,{timout:2000});
                         this.BranchedRegisters.splice(this.BranchedRegisters.indexOf(register),1);
@@ -501,7 +523,7 @@
                     .then(({data})=>{
                         this.LoadingSpinner = false;
 
-                        this.$toast.success('<i class="fas fa-thumbs-up"></i>',
+                        this.$toast.success('.',
                             'قد تم اضافة السجل بنجاح '
                             ,{timout:2000});
                         this.ValidationErrors = '';
@@ -549,7 +571,7 @@
                 ).then((res) => {
                     this.LoadingSpinner = false;
 
-                    this.$toast.success('<i class="fas fa-thumbs-up"></i>',
+                    this.$toast.success('.',
                         'قد تم تعديل بيانات المنشأة بنجاح '
                         ,{timout:2000});
                     this.CompanyError = false;
@@ -577,12 +599,14 @@
 
                 formData.append('MainTradeRegisterNumber',this.MainTradeRegister.number);
 
+                formData.append('revisingManager_id',this.ChoosenRevisingManagerID);
+
 
                 axios.post(route('Transactions.store', [this.institution.id, this.ChoosenReviserID] ),formData)
                     .then(({data}) => {
                         this.LoadingSpinner = false;
 
-                        this.$toast.success('<i class="fas fa-thumbs-up"></i>',
+                        this.$toast.success('.',
                             'قد تم انشاء معاملة جديدة بنجاح '
                             ,{timout:2000})
                         this.$parent.Transaction = data[0];

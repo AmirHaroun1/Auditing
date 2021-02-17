@@ -17,6 +17,12 @@ class employeesController extends Controller
          $employees = employee::latest()->paginate(50);
         return view('SuperAdmin.employees.index',compact('employees'));
     }
+    public function getEmployeeType($type){
+
+        $employees = employee::where('role','LIKE',$type)->get();
+
+        return response()->json(['employees'=>$employees],200);
+    }
     public function create()
     {
         return view('SuperAdmin.employees.create');
@@ -36,7 +42,9 @@ class employeesController extends Controller
     }
     public function update(UpdateEmployeeRequest $request,employee $employee)
     {
-        $employee->update($request->all());
+
+        $employee->UpdateUserInfo($request);
+
         return redirect()->route('employees.index')->with('success', 'قد تم تعديل بيانات الموظف بنجاح');
     }
     public function destroy(employee $employee)
