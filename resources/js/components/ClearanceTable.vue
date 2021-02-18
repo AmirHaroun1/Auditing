@@ -171,6 +171,7 @@
                 <tr>
                     <td><h5>الرصيد آخر السنة</h5></td>
                     <td style="visibility: hidden"></td>
+
                     <td>
                         <h5 v-text="formatValue(Account.CurrentYearDebtorSum)"> </h5>
                     </td>

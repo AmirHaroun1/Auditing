@@ -172,6 +172,7 @@
                                                 <th  rowspan="2" colspan="1">
                                                     الأسم
                                                 </th>
+
                                                 <th class="text-center"  rowspan="1" colspan="2">
                                                     حركة
                                                 </th>
@@ -227,8 +228,7 @@
                                                 <td>
                                                     <h5>{{item.name}}</h5>
                                                 </td>
-                                                <td v-if="item.is_related_party"><h5>{{item.related_party_branch}}</h5></td>
-                                                <td v-if="item.is_related_party"><h5>{{item.related_party_type}}</h5></td>
+
                                                 <td>
                                                     <h5 v-text="formatValue(item.CurrentYearDebtorSum)"></h5>
                                                 </td>
@@ -268,6 +268,7 @@
                                             <tr>
                                                 <td><h4>الرصيد آخر السنة</h4></td>
                                                 <td style="visibility: hidden"></td>
+
                                                 <td><h5 v-text="formatValue(ThirdLVLAccount.CurrentYearDebtorSum)"></h5></td>
                                                 <td><h5 v-text="formatValue(ThirdLVLAccount.CurrentYearCreditorSum)"></h5></td>
                                                 <td><h5 v-text="formatValue(ThirdLVLAccount.edited_CurrentYearDebtorSum)"></h5></td>

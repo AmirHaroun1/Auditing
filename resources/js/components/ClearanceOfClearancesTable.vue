@@ -180,9 +180,9 @@
                 </tr>
                 <tr>
                     <td><h5>الرصيد آخر السنة</h5></td>
-                    <td style="visibility: hidden"></td>
-                    <td style="visibility: hidden"></td>
-                    <td style="visibility: hidden"></td>
+                    <td style="visibility: hidden" ></td>
+                    <td style="visibility: hidden" v-if="MonetaryItem.is_related_party"></td>
+                    <td style="visibility: hidden" v-if="MonetaryItem.is_related_party"></td>
                     <td><h5 v-text="formatValue(MonetaryItem.current_year_debtor)"></h5></td>
                     <td><h5 v-text="formatValue(MonetaryItem.current_year_creditor)"></h5></td>
                     <td><h5 v-text="formatValue(MonetaryItem.edited_current_year_debtor)"></h5></td>

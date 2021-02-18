@@ -271,19 +271,19 @@
                                             <input type="text" class="form-control" v-model="temp_statement.name" required>
                                         </div>
                                     </div>
-                                    <div class="row pt-10 form-group " v-if="temp_statement.is_related_party" >
+                                    <div class="row pt-10 form-group " v-if="temp_statement.ShowRelatedFields"   >
                                         <div class="col-md-12" >
                                             <label>الفرع</label>
                                             <input type="text" class="form-control" v-model="temp_statement.related_party_branch" required>
                                         </div>
                                     </div>
-                                    <div class="row pt-10 form-group " v-if="temp_statement.is_related_party" >
+                                    <div class="row pt-10 form-group " v-if="temp_statement.ShowRelatedFields" >
                                         <div class="col-md-12" >
                                             <label>نوع و طبيعة العلاقة</label>
                                             <input type="text" class="form-control" v-model="temp_statement.related_party_type" required>
                                         </div>
                                     </div>
-                                    <div v-if="temp_statement.account_level == 4 || ParentStatement !== null " class="row">
+                                    <div v-if="temp_statement.ShowDebitCreditValues" class="row">
                                         <div class="col-md-6 form-group">
                                             <label>مدين{{Transaction.financial_year}}</label>
                                             <input v-model="temp_statement.current_year_debtor" class="form-control">
@@ -293,28 +293,28 @@
                                             <input v-model="temp_statement.current_year_creditor" class="form-control">
                                         </div>
                                     </div>
-                                    <div v-if="temp_statement.account_level == 4 || ParentStatement !== null" class="row">
+                                    <div v-if="temp_statement.ShowDebitCreditValues" class="row">
                                         <div class="col-md-12 form-group">
                                             <label>رصيد{{Transaction.financial_year-1}}</label>
                                             <input v-model="temp_statement.first_past_year" class="form-control">
                                         </div>
 
                                     </div>
-                                    <div v-if="temp_statement.account_level == 4 || ParentStatement !== null" class="row">
+                                    <div v-if="temp_statement.ShowDebitCreditValues" class="row">
                                         <div class="col-md-12 form-group">
                                             <label>رصيد{{Transaction.financial_year-2}}</label>
                                             <input v-model="temp_statement.second_past_year" class="form-control">
                                         </div>
 
                                     </div>
-                                    <div v-if="temp_statement.account_level == 4 || ParentStatement !== null" class="row">
+                                    <div v-if="temp_statement.ShowDebitCreditValues" class="row">
                                         <div class="col-md-12 form-group">
                                             <label>رصيد{{Transaction.financial_year-3}}</label>
                                             <input v-model="temp_statement.third_past_year" class="form-control">
                                         </div>
 
                                     </div>
-                                    <div v-if="temp_statement.account_level == 4 || ParentStatement !== null" class="row">
+                                    <div v-if="temp_statement.ShowDebitCreditValues" class="row">
                                         <div class="col-md-12 form-group">
                                             <label>رصيد{{Transaction.financial_year-4}}</label>
                                             <input v-model="temp_statement.fourth_past_year" class="form-control">
@@ -409,7 +409,6 @@
                                             <input type="text" class="form-control" v-model="AddedStatement.name" required>
                                         </div>
                                     </div>
-
                                     <div class="row pt-10 " v-if="AddedStatement.is_related_party && SelectedAccount.level == 4" >
                                         <div class="col-md-12" >
                                             <label>الفرع</label>
@@ -746,16 +745,21 @@
             },
             OpenEditDeleteModal(account,index){
                 this.deleteIndex = index;
-
+                this.$set(account,'ShowDebitCreditValues',false);
+                if( this.SelectedAccount.level == 4 || (account.hasOwnProperty('parent_id') && account.parent_id !== null )  ){
+                    this.$set(account,'ShowDebitCreditValues',true);
+                }
+                if( (account.is_related_party && this.SelectedAccount.level == 4) || (account.is_related_party && account.hasOwnProperty('parent_id') && account.parent_id !== null) ){
+                    this.$set(account,'ShowRelatedFields',true);
+                }
                 this.temp_statement = {...account};
 
                 this.edited_deleted_account = account;
                 this.$refs.EditModalButton.click();
             },
             OpenAddStatementModal(){
-
                 this.AddedStatement.name ='';
-
+                this.AddedStatement.is_related_party = this.SelectedAccount.is_related_party;
                 this.AddedStatement.current_year =0;
                 this.AddedStatement.current_year_creditor =0;
                 this.AddedStatement.current_year_debtor =0;
@@ -1038,6 +1042,8 @@
                     formData.append('is_related_party',1);
                     formData.append('related_party_type',this.AddedStatement.related_party_type);
                     formData.append('related_party_branch',this.AddedStatement.related_party_branch);
+                }else{
+                    formData.append('is_related_party',0);
                 }
                 this.AddedStatement.current_year = this.AddedStatement.current_year_creditor - this.AddedStatement.current_year_debtor ;
                 formData.append('current_year',this.AddedStatement.current_year_creditor - this.AddedStatement.current_year_debtor);
@@ -1100,7 +1106,6 @@
                     formData.append('related_party_branch',this.AddedStatement.related_party_branch);
                 }else{
                     formData.append('is_related_party',0);
-
                 }
                 this.AddedStatement.current_year = this.AddedStatement.current_year_creditor - this.AddedStatement.current_year_debtor ;
 
@@ -1164,10 +1169,10 @@
 
                 formData.append('fourth_past_year',this.AddedChildStatement.fourth_past_year !== null ? this.AddedChildStatement.fourth_past_year : 0);
 
-                formData.append('parent_id',this.ParentStatement.id);
+                this.AddedChildStatement.parent_id =      this.ParentStatement.id;
+                formData.append('parent_id',this.AddedChildStatement.parent_id);
 
                 formData.append('ReadDataOnly',0);
-
                 axios.post(route('accounts.statements.branches.store'),formData)
                     .then(({data}) => {
                         console.log( data.BranchedStatementID);
@@ -1247,7 +1252,6 @@
 
                 axios.post(route('accounts.statements.update',this.ParentStatement.id),formData)
                     .then((res)=>{
-                        this.$toast.success('.','تم الحفظ بنجاح');
 
                         this.LoadingSpinner = false;
 

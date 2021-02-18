@@ -88,7 +88,7 @@
                                     <!----- collapsed tap content ------->
                                     <div :id="'collapse'+SecondLVLAccount.id" :class="[printFullScreenBoolean ? '': 'collapse fade' ]">
 
-                                        <clearance-of-clearances-table :Account="SecondLVLAccount" :Tranasction="Transaction" ref="SecondLVLClearanceOfClearances"></clearance-of-clearances-table>
+                                        <clearance-of-clearances-table :Account="SecondLVLAccount" :Transaction="Transaction" ref="SecondLVLClearanceOfClearances"></clearance-of-clearances-table>
                                     </div>
                                     <!----- ./collapsed tap content ------->
                                 </div>
@@ -478,7 +478,7 @@
     import ClickOutside from 'vue-click-outside'
 
     export default {
-        name: "TransactionClearances",
+        name: "TransactionClearanceOfClearances",
         directives: {
             ClickOutside
         },
