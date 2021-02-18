@@ -14,6 +14,9 @@ class account_transaction extends Pivot
     public function branchedStatements(){
         return $this->hasMany('App\account_transaction','parent_id');
     }
+    public function accountsInKind(){
+        return $this->hasMany('App\AccountsInKind','statement_id');
+    }
     public function scopeWithBranchesSum($query,$TransactionsID = null){
         $query->addSelect(['AllBranchesCurrentYearSum'=> function($query) use ($TransactionsID){
 
