@@ -476,7 +476,12 @@
 
                 this.Added_Account.level = level;
                 this.ParentAccountArray = parentAccountArray;
-                if (!this.ParentAccountArray.length){
+                if(Parent == null && !this.ParentAccountArray.length){
+                    this.Added_Account.code = 1;
+                    this.$refs.AddModalButton.click();
+
+                }
+                else if (!this.ParentAccountArray.length){
                    this.Added_Account.code = Parent.code;
                    this.$refs.DetermineFixedPointsButton.click();
                 }else{
@@ -532,6 +537,7 @@
                 formData.append('second_study',this.Added_Account.second_study);
 
                 formData.append('is_related_party',this.Added_Account.is_related_party ? 1 : 0);
+
                 if (this.Added_Account.oldest_parent_id){
                     formData.append('oldest_parent_id',this.Added_Account.oldest_parent_id);
                 }
@@ -541,6 +547,7 @@
                 if (this.Added_Account.parent_id){
                     formData.append('parent_id',this.Added_Account.parent_id);
                 }
+
                 axios.post(route('system.AccountCharts.store'),formData)
                     .then(({data}) => {
                         if(this.Added_Account.level == 1){

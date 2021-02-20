@@ -71,6 +71,9 @@ class CreateAccountTransactionTable extends Migration
 
             $table->double('fourth_past_year')->default(0);
 
+            $table->double('aggregated_debit')->default(0);
+            $table->double('aggregated_credit')->default(0);
+
             $table->text('comment')->nullable();
             $table->boolean('ReadDataOnly')->default('0');
 

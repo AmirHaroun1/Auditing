@@ -63,14 +63,23 @@
                 </div><!-- /.info-box -->
             </div>
             <!-- إيضاح_الأيضاحات -->
-
-
             <!-- الحسابات -->
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box cursor-pointer" @click="ActivePane = 'القوائم' ">
                         <span class="info-box-icon bg-green"><i class="fa fa-info"></i></span>
                     <div class="info-box-content">
                         <h4 class="font-weight-bold" style="padding-top:10px;" > القوائم المالية</h4>
+                    </div><!-- /.info-box-content -->
+                </div><!-- /.info-box -->
+            </div>
+            <!-- الحسابات -->
+
+            <!-- الحسابات -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box cursor-pointer" @click="ActivePane = 'العينة' ">
+                    <span class="info-box-icon bg-green"><i class="fa fa-info"></i></span>
+                    <div class="info-box-content">
+                        <h4 class="font-weight-bold" style="padding-top:10px;" >العينة</h4>
                     </div><!-- /.info-box-content -->
                 </div><!-- /.info-box -->
             </div>
@@ -98,6 +107,9 @@
                 </div>
                 <div class="tab-pane fade in show" v-if="ActivePane=='القوائم'">
                     <transaction-financial-statements :Transaction="Transaction" ></transaction-financial-statements>
+                </div>
+                <div class="tab-pane fade in show" v-if="ActivePane=='العينة'">
+                    <account-statements-sample :Transaction="Transaction"></account-statements-sample>
                 </div>
         </div>
 

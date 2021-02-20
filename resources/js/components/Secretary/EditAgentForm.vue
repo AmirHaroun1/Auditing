@@ -139,7 +139,7 @@
                         ,{timout:2000});
                     this.ValidationErrors = '';
                     this.$parent.SectionStage=3;
-
+                    this.$parent.Agent = Agent;
                 }).catch((error) => {
                     this.LoadingSpinner = false;
 

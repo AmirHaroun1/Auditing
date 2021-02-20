@@ -301,7 +301,14 @@ Route::group(['middleware'=>['auth'] ],function () {
     Route::patch('/UpdateBranchOfAccountStatement/{BranchedStatementID}','TransactionAccountStatementBranchesController@update')->name('accounts.statements.branches.update');
 
     Route::post('/StoreNewBranchedStatement','TransactionAccountStatementBranchesController@store')->name('accounts.statements.branches.store');
-
-
+    /*
+    |--------------------------------------------------------------------------
+    |  AccountsInKind  Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/InKind/{TransactionID}','AccountsInKindController@index')->name('AccountsInKind.index');
+    Route::post('/StoreNewInKind','AccountsInKindController@store')->name('AccountsInKind.store');
+    Route::patch('/UpdateInKind/{InKindID}','AccountsInKindController@update')->name('AccountsInKind.update');
+    Route::delete('/DeleteInKind/{InKindID}/Parent/{ParentStatementID}','AccountsInKindController@destroy')->name('AccountsInKind.destroy');
 
 });

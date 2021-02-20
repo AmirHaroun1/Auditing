@@ -15,6 +15,7 @@ class CreateAccountsInKindsTable extends Migration
     {
         Schema::create('accounts_in_kinds', function (Blueprint $table) {
             $table->id();
+            $table->string('name')->nullable();
             $table->double('detailed_debit')->default(0)->nullable();
             $table->double('detailed_credit')->default(0)->nullable();
 
@@ -25,6 +26,7 @@ class CreateAccountsInKindsTable extends Migration
             $table->string('serial');
             $table->date('date');
 
+            $table->string('corresponding_statement_code');
             $table->foreignId('statement_id')->nullable();
             $table->foreign('statement_id')
                 ->references('id')

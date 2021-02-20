@@ -143,17 +143,17 @@
 
                 axios.post(route('TradeRegister.store',this.$parent.New_institution),
                     formData
-                ).then((res) => {
+                ).then(({data}) => {
 
+                    console.log(data);
+                    if( data.type  == 'فرعي'  ){
 
-                    if( res.data.type  == 'فرعي'  ){
-
-                        this.NewBranchedTradeRegisters.push(res.data);
+                        this.NewBranchedTradeRegisters.push({data});
                         this.ClearBranchedRegisterInput();
                         alert('Branched TradeRegister Has Been Added Successfully');
 
                     }
-                    if ( res.data.type  == 'رئيسي'){
+                    if ( data.type  == 'رئيسي'){
 
                         this.MainTradeRegister_NOT_ADDED = false;
 
