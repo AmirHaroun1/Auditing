@@ -139,10 +139,9 @@
                         ,{timout:2000});
                     this.ValidationErrors = '';
                     this.$parent.SectionStage=3;
-                    this.$parent.Agent = Agent;
+                    this.$parent.Agent = this.Agent;
                 }).catch((error) => {
                     this.LoadingSpinner = false;
-
                     this.ValidationErrors = error.response.data.errors;
                     this.$toast.error('خطأ','يرجى اعادة مراجعة البيانات',{timout:2000});
                 });

@@ -671,8 +671,6 @@
 
                 },
 
-
-
                 edited_deleted_account:'',
 
                 deleteIndex:'',

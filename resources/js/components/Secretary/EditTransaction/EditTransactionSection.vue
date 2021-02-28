@@ -54,8 +54,8 @@
                <edit-transaction-data></edit-transaction-data>
             </div>
             <div class="tab-pane fade in show" v-else-if="ActivePane=='ضابط الأتصال'">
-                <div v-if="Agent">
-                    <edit-agent-form></edit-agent-form>
+                <div v-if="Agent !== null">
+                    <edit-agent-form> </edit-agent-form>
                 </div>
                 <div v-else>
                     <new-agent-form></new-agent-form>
@@ -84,7 +84,7 @@
 
                 ActivePane:'',
                 Institution : '',
-                Agent:'',
+                Agent:null,
                 MainTradeRegister:'',
                 BranchedTradeRegisters:'',
                 Documents:'',

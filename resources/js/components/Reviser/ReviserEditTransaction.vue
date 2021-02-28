@@ -74,6 +74,7 @@
                                 <table class="table table-bordered text-center">
                                     <thead>
                                     <tr>
+                                        <th style="color: white;background-color: #00a65a;border-color:white">السكرتارية</th>
                                         <th style="color: white;background-color: #00a65a;border-color:white">المندوب الميدانى</th>
                                         <th style="color: white;background-color: #00a65a;border-color:white">المراجع الفنى</th>
                                         <th style="color: white;background-color: #00a65a;border-color:white">المدقق</th>
