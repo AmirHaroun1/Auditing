@@ -16,7 +16,7 @@ class TransactionsController extends Controller
     {
 
         if(\request()->expectsJson()){
-            $transactions = Transaction::select(['id','MainTradeRegisterNumber','financial_year','status','start_financial_year','created_at'])
+            $transactions = Transaction::all()
                 ->when(true, function($query){
                     switch (auth()->user()->role)
                     {
@@ -78,6 +78,19 @@ class TransactionsController extends Controller
         $transaction->update($request->all());
 
         return response()->json([$transaction],200);
+
+    }
+    public function updateActualTime(Transaction $transaction, Request $request){
+        $transaction->secretary_actualTime += $request->secretary_actualTime;
+        $transaction->reviser_actualTime += $request->reviser_actualTime;
+        $transaction->revisingManager_actualTime += $request->revisingManager_actualTime;
+        $transaction->auditor_actualTime += $request->auditor_actualTime;
+        $transaction->archiveSecretary_actualTime += $request->archiveSecretary_actualTime;
+        $transaction->executiveDirector_actualTime += $request->executiveDirector_actualTime;
+
+        $transaction->save();
+
+        return response()->json([],200);
 
     }
 

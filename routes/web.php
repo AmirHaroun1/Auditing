@@ -245,6 +245,7 @@ Route::group(['middleware'=>['auth'] ],function () {
     |--------------------------------------------------------------------------
     */
     Route::patch('/UpdateTransaction/{transaction:id}', 'TransactionsController@update')->name('Transactions.update');
+    Route::patch('/UpdateTransactionActualTime/{transaction:id}', 'TransactionsController@updateActualTime')->name('Transactions.update.ActualTime');
 
     /*
     |--------------------------------------------------------------------------
