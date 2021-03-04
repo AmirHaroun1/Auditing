@@ -17,8 +17,12 @@ class CreateSystemSettingsTable extends Migration
             $table->id();
             $table->string('type');
             $table->string('name')->nullable();
+            $table->string('name_english')->nullable();
             $table->string('value')->nullable();
-
+            $table->text('logo')->nullable();
+            $table->text('bank_name')->nullable();
+            $table->text('bank_name_english')->nullable();
+            $table->text('bank_account_number')->nullable();
             $table->timestamps();
         });
     }

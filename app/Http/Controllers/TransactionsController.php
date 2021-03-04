@@ -6,6 +6,7 @@ use App\Http\Requests\StoreTransactionRequest;
 use App\Http\Requests\UpdateTransactionRequest;
 use App\institution;
 use App\reviser;
+use App\SystemSettings;
 use App\Transaction;
 use Illuminate\Http\Request;
 
@@ -16,8 +17,8 @@ class TransactionsController extends Controller
     {
 
         if(\request()->expectsJson()){
-            $transactions = Transaction::all()
-                ->when(true, function($query){
+            $transactions = Transaction::
+                when(true, function($query){
                     switch (auth()->user()->role)
                     {
                         case "مراجع فني": return $query->where('reviser_id',auth()->user()->id);
@@ -100,9 +101,9 @@ class TransactionsController extends Controller
 
     public function PrintEngagementLetter(institution $Institution,Transaction $Transaction)
     {
+        $OfficeInfo = SystemSettings::where('type','LIKE','بيانات المكتب')->firstOrFail();
           $Institution->load([
-            'agent',
-            'MainTradeRegister']);
-        return view('Transactions.EngagementLetter',compact('Institution','Transaction'));
+            'agent']);
+        return view('Transactions.EngagementLetter',compact('Institution','Transaction','OfficeInfo'));
     }
 }

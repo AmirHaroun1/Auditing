@@ -177,14 +177,9 @@
                         </div>
                         <div class="row">
                             <div class="col-md-4" style="padding-top:20px">
-                                <label>أسم مكتب المراجعة</label>
-                                <input v-model="ReviserCompanyName" type="text" class="form-control" >
-                            </div>
-
-                            <div class="col-md-4" style="padding-top:20px">
                                 <label>النوع</label>
                                 <select v-model="PaymentType" type="text" class="form-control">
-                                    <option value="مقدم أتعاب">مقدم أتعاب</option>
+                                    <option bv value="مقدم أتعاب">مقدم أتعاب</option>
 
                                     <option value="دفعة أتعاب نهائية">دفعة أتعاب نهائية</option>
                                 </select>

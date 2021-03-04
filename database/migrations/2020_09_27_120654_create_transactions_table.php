@@ -62,6 +62,9 @@ class CreateTransactionsTable extends Migration
             $table->text('archiveSecretary_actualTime')->nullable();
             $table->text('executiveDirector_actualTime')->nullable();
 
+            $table->string('time_status')->default('acceptable');
+            $table->text('rejection_reason')->nullable();
+
 
             $table->foreignId('reviser_id')->nullable(); // المراجع الفنى
             $table->foreign('reviser_id')

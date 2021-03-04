@@ -241,6 +241,14 @@ Route::group(['middleware'=>['auth'] ],function () {
 
     /*
     |--------------------------------------------------------------------------
+    |  OfficeInfo  Routes
+    |--------------------------------------------------------------------------
+    */
+    Route::get('/OfficeInfo','SystemSettingsController@GetOfficeInfo')->name('system.officeInfo');
+    Route::post('/StoreOfficeInfo','SystemSettingsController@StoreOfficeInfo')->name('system.officeInfo.store');
+    Route::patch('/UpdateOfficeInfo','SystemSettingsController@UpdateOfficeInfo')->name('system.officeInfo.update');
+    /*
+    |--------------------------------------------------------------------------
     |  update Transaction Routes
     |--------------------------------------------------------------------------
     */
@@ -311,5 +319,6 @@ Route::group(['middleware'=>['auth'] ],function () {
     Route::post('/StoreNewInKind','AccountsInKindController@store')->name('AccountsInKind.store');
     Route::patch('/UpdateInKind/{InKindID}','AccountsInKindController@update')->name('AccountsInKind.update');
     Route::delete('/DeleteInKind/{InKindID}/Parent/{ParentStatementID}','AccountsInKindController@destroy')->name('AccountsInKind.destroy');
+
 
 });
