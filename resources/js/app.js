@@ -113,6 +113,7 @@ Vue.component('revising-guid-management', require('./components/admin/RevisingGu
 
 Vue.component('financial-groups-management', require('./components/admin/FinancialGroupsManagement').default);
 
+Vue.component('office-info', require('./components/admin/OfficeInfo').default)
 /**
  * Archive Components
  */

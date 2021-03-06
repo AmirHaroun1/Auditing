@@ -14,9 +14,10 @@ class SystemSettingsController extends Controller
 {
     //
     public function GetOfficeInfo(){
-        $OfficeInfo = SystemSettings::where('type','Like','بيانات المكتب')->get();
 
-        return response()->json(['OfficeInfo'],200);
+        $OfficeInfo = SystemSettings::where('type','Like','بيانات المكتب')->first();
+
+        return view('SuperAdmin.OfficeInfo.index',compact('OfficeInfo'));
     }
     public function StoreOfficeInfo(Request $request){
         if($request->has('logo')){

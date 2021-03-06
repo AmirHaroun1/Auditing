@@ -38,6 +38,7 @@ class DashBoardController extends Controller
             ->selectRaw('count(case when YEAR(created_at) = YEAR(CURRENT_TIMESTAMP)-1 then 1 end ) as PastYearTransactions')
             ->selectRaw('AVG(total_value) as TotalValueAVG')
             ->get();
+
         return view('SuperAdmin.dashboard.index');
     }
 }

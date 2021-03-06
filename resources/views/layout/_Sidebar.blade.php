@@ -40,6 +40,11 @@
                         </a>
                     </li>
                     <li>
+                        <a href="{{route('system.officeInfo')}}">
+                            <i class="fa fa-dashboard"></i> <span>بيانات المكتب</span>
+                        </a>
+                    </li>
+                    <li>
                         <a href="{{route('employees.index')}}">
                             <i class="fa fa-user"></i> <span>الموظفين</span>
                         </a>
