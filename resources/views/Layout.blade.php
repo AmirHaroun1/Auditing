@@ -70,7 +70,8 @@
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
                                 <i class="glyphicon glyphicon-user"></i>
                                 <span>
-                                    {{auth()->user()->name}}
+
+                                        {{auth()->user()->name}}
                                     <i class="caret"></i>
                                 </span>
                             </a>
@@ -80,7 +81,7 @@
                                     <img src="{{asset('images/unknownAvatar.jpg')}}" class="img-circle" alt="User Image" />
 
                                     <p>
-                                        {{auth()->user()->role}}
+                                            {{auth()->user()->name}}
                                     </p>
                                 </li>
                                 <!-- Menu Footer-->
@@ -128,7 +129,12 @@
                 @section('PageHeader')
                     الرئيسية
                     @auth
-                        <small>{{auth()->user()->role}}</small>
+                        @if(auth()->user()->role == 'سوبر')
+                            <small>أدمن</small>
+                        @else
+                            <small>{{auth()->user()->role}}</small>
+
+                        @endif
                     @endauth
                 @show
             </h1>

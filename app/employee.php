@@ -30,4 +30,13 @@ class employee extends User
             $this->update($request->all());
         }
     }
+    public function transactions(){
+        return $this;
+        if($this->attributes['role'] == 'مراجع فني'){
+            return $this->hasMany('App\transactions','reviser_id');
+        }
+        else if($this->attributes['role'] == 'مدقق'){
+            return $this->hasMany('App\transactions','auditor_ir');
+        }
+    }
 }

@@ -18,6 +18,8 @@
 
 
     <div id="app" style="padding-top:20px">
+
+
         @if(auth()->user()->role == 'سكرتير')
             <secretary-edit-transaction-section  :Transaction="{{$Transaction}}"></secretary-edit-transaction-section>
              @elseif(auth()->user()->role == 'مراجع فني')
@@ -28,7 +30,6 @@
             <revising-manager-edit-transaction :Transaction="{{$Transaction}}"></revising-manager-edit-transaction>
             @elseif(auth()->user()->role == 'شريك اداري')
             <partner-edit-transaction :Transaction="{{$Transaction}}"></partner-edit-transaction>
-
         @endif
     </div>
 @endsection

@@ -3,5 +3,7 @@
 @section('title')
      - الرئيسية أدمن
 @endsection
+@section('content')
 
+@endsection
 

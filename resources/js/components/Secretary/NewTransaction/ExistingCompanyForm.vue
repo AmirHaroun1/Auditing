@@ -5,7 +5,7 @@
         </div>
         <!-- /.box-header -->
         <div class="box-body">
-            <form id="CreateTransactionForm" class="form-group" @submit.prevent="createTransaciton()">
+            <form id="CreateTransactionForm" class="form-group" @submit.prevent="createTransaction()">
                 <!-- New TransAction Form Content ------>
 
                 <!-- main register input ------>
@@ -586,11 +586,12 @@
                 });
             },
 
-            createTransaciton(){
+            createTransaction(){
                 this.LoadingSpinner = true;
 
                 var formData = new FormData();
 
+                formData.append('status', 'under_review');
                 formData.append('financial_year', this.transaction.financial_year);
                 formData.append('start_financial_year', this.transaction.start_financial_year);
                 formData.append('end_financial_year',this.transaction.end_financial_year);

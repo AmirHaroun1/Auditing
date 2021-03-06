@@ -35,7 +35,7 @@ class CreateTransactionsTable extends Migration
             $table->unsignedBigInteger('offer_value')->default(0); //قيمة الخصم
             $table->unsignedBigInteger('total_value')->default(0); //اجمالى أتعاب
 
-            $table->string('status')->nullable(); //الحالة
+            $table->string('status')->default('under_review'); //الحالة
 
             $table->dateTime('start_date')->nullable();
             $table->dateTime('end_date')->nullable();
@@ -53,18 +53,19 @@ class CreateTransactionsTable extends Migration
             $table->text('revisingManager_notes')->nullable();
             $table->text('auditor_notes')->nullable();
             $table->text('archiveSecretary_notes')->nullable();
-            $table->text('executiveDirector_notes')->nullable();
+
+            // $table->text('executiveDirector_notes')->nullable();
 
             $table->text('secretary_actualTime')->nullable();
             $table->text('reviser_actualTime')->nullable();
             $table->text('revisingManager_actualTime')->nullable();
             $table->text('auditor_actualTime')->nullable();
-            $table->text('archiveSecretary_actualTime')->nullable();
-            $table->text('executiveDirector_actualTime')->nullable();
+            $table->text('Managing_partner_time_actualTime')->nullable();
 
             $table->string('time_status')->default('acceptable');
             $table->text('rejection_reason')->nullable();
 
+            $table->boolean('auditor_is_changed')->default(0);
 
             $table->foreignId('reviser_id')->nullable(); // المراجع الفنى
             $table->foreign('reviser_id')

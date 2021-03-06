@@ -232,7 +232,7 @@
                   formData.append('auditor_id',this.ChoosenAuditor.code);
               }
               console.log(formData);
-                axios.post(route('Transactions.update',this.Transaction.id ),formData)
+                axios.post(route('Transactions.update',this.Transaction.id),formData)
                     .then((res) => {
                         console.log(res);
                         this.LoadingSpinner = false;

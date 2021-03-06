@@ -18,7 +18,6 @@ class EmployeesScope implements Scope
     public function apply(Builder $builder, Model $model)
     {
         $builder->where('role','!=','عميل')
-                ->where('role','!=','شريك ادارى')
                 ->where('role','!=','سوبر')
                 ->where('role','!=','مندوب شركة');
     }
